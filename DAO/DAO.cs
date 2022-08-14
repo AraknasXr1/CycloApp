@@ -1,7 +1,14 @@
-Public abstract Class DAO<T>
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+
+public abstract class DAO<T>
     {
-        Protected String connectionString = null;
-        Public DAO()
+    protected string connectionString = null;
+    public DAO()
         {
             this.connectionString = ConfigurationManager.ConnectionStrings["cyclingDB"].ConnectionString;
         }
