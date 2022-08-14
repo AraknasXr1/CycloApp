@@ -29,10 +29,8 @@ Public Class VehiculeDAO :  DAO<Vehicule>
                         {
                             Vehicule = New Vehicule
                             {
-                                ID = reader.GetInt32("car_idcarclient"),
-                                CarSeat = reader.GetInt32("car_seat"),
-                                CarBike = reader.GetInt32("car_bike"),
-                                CarBrand = reader.GetString("car_brand")
+                                nbrePlacesMembre = reader.GetInt32("car_idcarclient"),
+                                brePlacesVelo = reader.GetInt32("car_seat")
                             };
                         }
                     }

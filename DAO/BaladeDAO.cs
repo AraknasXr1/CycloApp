@@ -20,8 +20,8 @@ Public Class BaladeDAO :  DAO<Balade>
             {
                 Using (SqlConnection connection = New SqlConnection(this.connectionString))
                 {
-                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Ride WHERE bld_num = @num", connection);
-                    cmd.Parameters.AddWithValue("num", num);
+                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Ride WHERE bld_id = @id", connection);
+                    cmd.Parameters.AddWithValue("id", id);
                     connection.Open();
                     Using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -29,10 +29,10 @@ Public Class BaladeDAO :  DAO<Balade>
                         {
                             Balade = New Balade
                             {
-                                num = reader.GetInt32("bld_num"),
-                                lieuDepart = reader.GetString("bld_lieuDepart"),
-                                dateDepart = reader.GetString("bld_dateDepart")
-                                forfait = reader.GetFloat("bld_forfait")
+                                num = reader.GetInt32("bld_id"),
+                                lieuDepart = reader.GetString("bld_DeparturePlace"),
+                                dateDepart = reader.GetString("bld_DepartureDate")
+                                forfait = reader.GetFloat("bld_RidePrice")
                             };
                         }
                     }
@@ -51,7 +51,7 @@ Public Class BaladeDAO :  DAO<Balade>
             {
                 Using (SqlConnection connection = New SqlConnection(this.connectionString))
                 {
-                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Client WHERE bld_cls_id =  @id", connection);
+                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Clients WHERE bld_cls_id =  @id", connection);
                     cmd.Parameters.AddWithValue("id", classe.ID);
                     connection.Open();
                     Using (SqlDataReader reader = cmd.ExecuteReader())
@@ -60,10 +60,10 @@ Public Class BaladeDAO :  DAO<Balade>
                         {
                             Balade bld = New Balade
                             {
-                                num = reader.GetInt32("bld_num"),
-                                lieuDepart = reader.GetString("bld_lieuDepart"),
-                                dateDepart = reader.GetString("bld_dateDepart")
-                                forfait = reader.GetFloat("bld_forfait")
+                                num = reader.GetInt32("bld_id"),
+                                lieuDepart = reader.GetString("bld_DeparturePlace"),
+                                dateDepart = reader.GetString("bld_DepartureDate")
+                                forfait = reader.GetFloat("bld_RidePrice")
                             };
                             Balades.Add(bld);
                         }

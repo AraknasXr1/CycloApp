@@ -20,7 +20,7 @@ Public Class MembreDAO :  DAO<Membre>
             {
                 Using (SqlConnection connection = New SqlConnection(this.connectionString))
                 {
-                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Client WHERE mbr_id = @id", connection);
+                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Clients WHERE mbr_id = @id", connection);
                     cmd.Parameters.AddWithValue("id", id);
                     connection.Open();
                     Using (SqlDataReader reader = cmd.ExecuteReader())
@@ -29,13 +29,12 @@ Public Class MembreDAO :  DAO<Membre>
                         {
                             membre = New Membre
                             {
-                                ID = reader.GetInt32("mbr_id"),
-                                FirstName = reader.GetString("mbr_firstname"),
-                                LastName = reader.GetString("mbr_lastname")
-                                Login = reader.GetString("mbr_clientLogin")
-                                Tel = reader.GetString("mbr_tel")
-                                Password = reader.GetString("mbr_password")
-                                Wallet = reader.GetFloat("mbr_wallet")
+                                id = reader.GetInt32("mbr_id"),
+                                nom = reader.GetString("mbr_firstname"),
+                                prenom = reader.GetString("mbr_lastname")
+                                tel = reader.GetString("mbr_tel")
+                                motDePasse = reader.GetString("mbr_password")
+                                solde = reader.GetFloat("mbr_wallet")
                             };
                         }
                     }
@@ -63,13 +62,12 @@ Public Class MembreDAO :  DAO<Membre>
                         {
                             Membre mbr = New Membre
                             {
-                                ID = reader.GetInt32("mbr_id"),
-                                FirstName = reader.GetString("mbr_firstname"),
-                                LastName = reader.GetString("mbr_lastname")
-                                Login = reader.GetString("mbr_clientLogin")
-                                Tel = reader.GetString("mbr_tel")
-                                Password = reader.GetString("mbr_password")
-                                Wallet = reader.GetFloat("mbr_wallet")
+                                id = reader.GetInt32("mbr_id"),
+                                nom = reader.GetString("mbr_firstname"),
+                                prenom = reader.GetString("mbr_lastname")
+                                tel = reader.GetString("mbr_tel")
+                                motDePasse = reader.GetString("mbr_password")
+                                solde = reader.GetFloat("mbr_wallet")
                             };
                             membres.Add(mbr);
                         }
