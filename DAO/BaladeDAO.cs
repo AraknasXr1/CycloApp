@@ -20,8 +20,8 @@ Public Class BaladeDAO :  DAO<Balade>
             {
                 Using (SqlConnection connection = New SqlConnection(this.connectionString))
                 {
-                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Ride WHERE bld_id = @id", connection);
-                    cmd.Parameters.AddWithValue("id", id);
+                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Ride WHERE bld_num = @num", connection);
+                    cmd.Parameters.AddWithValue("num", num);
                     connection.Open();
                     Using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -29,11 +29,10 @@ Public Class BaladeDAO :  DAO<Balade>
                         {
                             Balade = New Balade
                             {
-                                ID = reader.GetInt32("bld_id"),
-                                DeparturePlace = reader.GetString("bld_DeparturePlace"),
-                                DepartureDate = reader.GetString("bld_DepartureDate")
-                                DepartureHour = reader.GetString("bld_DepartureHour")
-                                RidePrice = reader.GetFloat("bld_RidePrice")
+                                num = reader.GetInt32("bld_num"),
+                                lieuDepart = reader.GetString("bld_lieuDepart"),
+                                dateDepart = reader.GetString("bld_dateDepart")
+                                forfait = reader.GetFloat("bld_forfait")
                             };
                         }
                     }
@@ -61,11 +60,10 @@ Public Class BaladeDAO :  DAO<Balade>
                         {
                             Balade bld = New Balade
                             {
-                                ID = reader.GetInt32("bld_id"),
-                                DeparturePlace = reader.GetString("bld_DeparturePlace"),
-                                DepartureDate = reader.GetString("bld_DepartureDate")
-                                DepartureHour = reader.GetString("bld_DepartureHour")
-                                RidePrice = reader.GetFloat("bld_RidePrice")
+                                num = reader.GetInt32("bld_num"),
+                                lieuDepart = reader.GetString("bld_lieuDepart"),
+                                dateDepart = reader.GetString("bld_dateDepart")
+                                forfait = reader.GetFloat("bld_forfait")
                             };
                             Balades.Add(bld);
                         }
