@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -12,8 +13,8 @@ public abstract class DAO<T>
         {
             this.connectionString = ConfigurationManager.ConnectionStrings["cyclingDB"].ConnectionString;
         }
-        Public abstract bool Create(T obj);
-        Public abstract bool Delete(T obj);
-        Public abstract bool Update(T obj);
-        Public abstract T Find(int id);
+        public abstract bool Create(T obj);
+        public abstract bool Delete(T obj);
+        public abstract bool Update(T obj);
+        public abstract T Find(int id);
     }
