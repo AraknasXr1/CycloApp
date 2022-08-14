@@ -14,6 +14,4 @@ abstract public class Categorie
 
     public abstract void AddMembre(Membre membre);
     public abstract void RemoveMembre(Membre membre);
-    
-   
 }
