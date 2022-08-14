@@ -1,4 +1,4 @@
-Public Class BaladeDAO :  DAO<Balade>
+public Class BaladeDAO :  DAO<Balade>
     {
         Public BaladeDAO(){ }
         Public override bool Create(Balade obj)

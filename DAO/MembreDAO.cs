@@ -1,4 +1,4 @@
-Public Class MembreDAO :  DAO<Membre>
+public Class MembreDAO :  DAO<Membre>
     {
         Public MembreDAO(){ }
         Public override bool Create(Membre obj)
@@ -53,7 +53,7 @@ Public Class MembreDAO :  DAO<Membre>
             {
                 Using (SqlConnection connection = New SqlConnection(this.connectionString))
                 {
-                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Client WHERE mbr_cls_id =  @id", connection);
+                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Clients WHERE mbr_cls_id =  @id", connection);
                     cmd.Parameters.AddWithValue("id", classe.ID);
                     connection.Open();
                     Using (SqlDataReader reader = cmd.ExecuteReader())
