@@ -47,33 +47,6 @@ namespace ProjectCyclistsWPF
             this.Close();
         }
 
-        private void Checkcats()
-        {
-            vttbool = false;
-            cyclobool = false;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
-            {
-                String queryretrieveinfo = $"SELECT * FROM LinkCat WHERE IdCliCat={numbcli}";
-                SqlCommand sqlcmdretrieve = new SqlCommand(queryretrieveinfo, connection);
-                connection.Open();
-                using (SqlDataReader readclientcat = sqlcmdretrieve.ExecuteReader())
-                {
-                    while (readclientcat.Read())
-                    {
-                        if ((vttcheck = readclientcat.GetInt32(2)) == 1)
-                        {
-                            vttbool = true;
-                        }
-                        if ((cyclocheck = readclientcat.GetInt32(2)) == 2)
-                        {
-                            cyclobool = true;
-                        }
-                    }
-                }
-                connection.Close();
-            }
-        }
-
         private void DeleteRide_Click(object sender, RoutedEventArgs e)
         {
             if (!(DeleteRideNumber.Text == String.Empty))
@@ -101,8 +74,7 @@ namespace ProjectCyclistsWPF
 
         private void AddCarBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (isValid())
-            {
+
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
                 {
                     String insertcar = $"INSERT INTO LinkCarToRide(IdCar,IdLinkRide) VALUES (@linkCar,@linkride)";
@@ -115,50 +87,16 @@ namespace ProjectCyclistsWPF
                     MessageBox.Show("Car added to the ride");
                     connection.Close();
                 }
-            }
+                }
+
+
+        private void RideList_Initialized(object sender, EventArgs e)
+        {
+
         }
 
-        private bool isValid()
+        private void CarList_Initialized(object sender, EventArgs e)
         {
-            Boolean tester;
-            tester= false;
-
-            if (AddCar.Text == String.Empty)
-            {
-                MessageBox.Show("Please enter an ID");
-            }
-            else
-            {
-                Match match = regexrule.Match(AddCar.Text);
-                if (match.Success)
-                {
-                    if (Addid.Text == String.Empty)
-                    {
-                            MessageBox.Show("Please enter an ID");
-                    }
-                    else
-                    {
-                        Match match2 = regexrule.Match(Addid.Text);
-                        if (match2.Success)
-                        {
-                            tester = true;
-                        }
-                        else
-                            MessageBox.Show("Number between 0-9 only");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Number between 0-9 only");
-                }
-                
-            }
-            if(tester)
-            {
-                return true;
-            }
-            else
-                return false;
 
         }
     }
