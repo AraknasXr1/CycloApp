@@ -1,79 +1,84 @@
-public Class BaladeDAO :  DAO<Balade>
+using System.Collections.Generic;
+using System.Data.SqlClient;
+
+
+public class BaladeDAO :  DAO<Balade>
     {
-        Public BaladeDAO(){ }
-        Public override bool Create(Balade obj)
+        public BaladeDAO(){ }
+        public override bool Create(Balade obj)
         {
-            Return False;
+            return false;
         }
-        Public override bool Delete(Balade obj)
+        public override bool Delete(Balade obj)
         {
-            Return False;
+            return false;
         }
-        Public override bool Update(Balade obj)
+        public override bool Update(Balade obj)
         {
-            Return False;
+            return false;
         }
-        Public override Balade Find(int id)
+        public override Balade Find(int id)
         {
             Balade Balade = null;
-            Try
+            try
             {
-                Using (SqlConnection connection = New SqlConnection(this.connectionString))
+                using(SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Ride WHERE bld_id = @id", connection);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Ride WHERE bld_id = @id", connection);
                     cmd.Parameters.AddWithValue("id", id);
                     connection.Open();
-                    Using (SqlDataReader reader = cmd.ExecuteReader())
+                    using(SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        If (reader.Read())
+                        if(reader.Read())
                         {
-                            Balade = New Balade
+                            Balade = new Balade
                             {
-                                num = reader.GetInt32("bld_id"),
+                                /*num = reader.GetInt32("bld_id"),
                                 lieuDepart = reader.GetString("bld_DeparturePlace"),
                                 dateDepart = reader.GetString("bld_DepartureDate")
-                                forfait = reader.GetFloat("bld_RidePrice")
+                                forfait = reader.GetFloat("bld_RidePrice")*/
+                                /* Utiliser un createur d'objet a implementer dans Balade*/
                             };
                         }
                     }
                 }
             }
-            Catch (SqlException)
+            catch (SqlException)
             {
-                Throw New Exception("Une erreur sql s'est produite!");
+                throw new System.Exception("Une erreur sql s'est produite!");
             }
-            Return Balade;
+            return Balade;
         }
-        Public List<Balade> FindAll(Classe classe)
+        public List<Balade> FindAll(Balade Balade)
         {
-            List<Balade> Balades = New List<Balade>();
-            Try
+            List<Balade> Balades = new List<Balade>();
+            try
             {
-                Using (SqlConnection connection = New SqlConnection(this.connectionString))
+                using(SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Clients WHERE bld_cls_id =  @id", connection);
-                    cmd.Parameters.AddWithValue("id", classe.ID);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Clients WHERE bld_cls_id =  @id", connection);
+                    cmd.Parameters.AddWithValue("id", Balade.Num);
                     connection.Open();
-                    Using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        While (reader.Read())
+                        while (reader.Read())
                         {
-                            Balade bld = New Balade
+                            Balade bld = new Balade
                             {
-                                num = reader.GetInt32("bld_id"),
+                                /*num = reader.GetInt32("bld_id"),
                                 lieuDepart = reader.GetString("bld_DeparturePlace"),
                                 dateDepart = reader.GetString("bld_DepartureDate")
-                                forfait = reader.GetFloat("bld_RidePrice")
+                                forfait = reader.GetFloat("bld_RidePrice")*/
                             };
                             Balades.Add(bld);
                         }
                     }
                 }
             }
-            Catch (SqlException)
+            catch (SqlException)
             {
-                Throw New Exception("Une erreur sql s'est produite!");
+                throw new System.Exception("Une erreur sql s'est produite!");
             }
-            Return Balades;
+            return Balades;
         }
     }
