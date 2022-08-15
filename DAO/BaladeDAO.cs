@@ -1,4 +1,5 @@
 using Microsoft.SqlServer.Server;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,9 +15,49 @@ public class BaladeDAO :  DAO<Balade>
         public BaladeDAO(){ }
         public override bool Create(Balade obj)
         {
+        int id = obj.Num;
+        int max = obj.Max;
+        int forf = obj.Forfait;
+        string datedep = obj.DateDepart;
+        string lieudep = obj.LieuDepart;
+        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
+        {
+            String insertcar = $"INSERT INTO Ride(DeparturePlace,DepartureDate,RidePrice,IdCatRide,MaxClient) VALUES (@place,@date,@price,@idride,@maxclient)";
+            SqlCommand sqlinsert = new SqlCommand(insertcar, connection);
+            sqlinsert.CommandType = CommandType.Text;
+            sqlinsert.Parameters.AddWithValue("@place", lieudep);
+            sqlinsert.Parameters.AddWithValue("@date", datedep);
+            sqlinsert.Parameters.AddWithValue("@price", forf);
+            sqlinsert.Parameters.AddWithValue("@idride", id);
+            sqlinsert.Parameters.AddWithValue("@maxclient", max);
+            connection.Open();
+            sqlinsert.ExecuteNonQuery();
+            connection.Close();
+        }
+        MessageBox.Show("This ride was created" + obj.ToString());
             return false;
         }
-        public override bool Delete(Balade obj)
+
+    public bool Create2(int id , int max , int forf, string datedep, string lieudep)
+    {
+        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
+        {
+            String insertcar = $"INSERT INTO Ride(DeparturePlace,DepartureDate,RidePrice,IdCatRide,MaxClient) VALUES (@place,@date,@price,@idride,@maxclient)";
+            SqlCommand sqlinsert = new SqlCommand(insertcar, connection);
+            sqlinsert.CommandType = CommandType.Text;
+            sqlinsert.Parameters.AddWithValue("@place", lieudep);
+            sqlinsert.Parameters.AddWithValue("@date", datedep);
+            sqlinsert.Parameters.AddWithValue("@price", forf);
+            sqlinsert.Parameters.AddWithValue("@idride", id);
+            sqlinsert.Parameters.AddWithValue("@maxclient", max);
+            connection.Open();
+            sqlinsert.ExecuteNonQuery();
+            connection.Close();
+        }
+        MessageBox.Show("This ride was created");
+        return false;
+    }
+    public override bool Delete(Balade obj)
         {
         int id = obj.Num;
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))

@@ -67,13 +67,13 @@ namespace ProjectCyclistsWPF
             List<Balade> balist = new List<Balade>();
             BaladeDAO BDAO = new BaladeDAO();
             balist = BDAO.FindListBalade(idclilocal, balist);
-            string concats=" ";
+            string concats="";
             foreach (Balade b in balist)
             {
-                concats += b.ToString();
-                concats += "\n";
+                concats += b.ToString() + "\n";
+
             }
-            RideList.Content = concats;
+            RideList.Content = concats.Substring(0,concats.Length-1);
         }
 
         private void RideDel_Click(object sender, RoutedEventArgs e)
@@ -87,29 +87,61 @@ namespace ProjectCyclistsWPF
                     bl2.Num = int.Parse(DeleteRideId.Text);
                     BaladeDAO BDAO2 = new BaladeDAO();
                     BDAO2.Delete(bl2);
-                    /*using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
-                    {
-                        try
-                        {
-                            String deleteride = $"DELETE FROM Ride WHERE IdRide=@idride";
-                            SqlCommand sqldelete = new SqlCommand(deleteride, connection);
-                            connection.Open();
-                            sqldelete.Parameters.AddWithValue("@idride", DeleteRideId.Text);
-                            sqldelete.ExecuteNonQuery();
-                            MessageBox.Show("Deleted your Ride with id number " + DeleteRideId.Text);
-                            connection.Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    }*/
                 }
                 else
                 {
                     MessageBox.Show("Pick a good Id");
                 }
             }
+        }
+
+        private void AddRide_Click(object sender, RoutedEventArgs e)
+        {
+            if (isValid())
+            {
+                Balade bl2 = new(idclilocal, DepPlace.Text, DepDate.Text,int.Parse(RidePrices.Text), int.Parse(MaxClient.Text));
+                MessageBox.Show(bl2.ToString() + "\n");
+                BaladeDAO BDAO3 = new BaladeDAO();
+                BDAO3.Create2(idclilocal, int.Parse(MaxClient.Text), int.Parse(RidePrices.Text), DepDate.Text, DepPlace.Text);
+            }
+        }
+
+        private bool isValid()
+        {
+            Boolean tester;
+            tester = false;
+
+            if (DepPlace.Text == String.Empty)
+            {
+                MessageBox.Show("Please enter a Departure Place");
+            }
+            else
+            {
+                if (DepDate.Text == String.Empty)
+                {
+                    MessageBox.Show("Please enter a Departure Date");
+                }
+                else
+                {
+
+                    if (RidePrices.Text == String.Empty)
+                    {
+                        MessageBox.Show("Please enter the number of the Ride Category, even if it's 0");
+                    }
+                        else
+                        {
+                                tester = true;
+                        }
+                       
+                    }
+                }
+            if (tester)
+            {
+                return true;
+            }
+            else
+                return false;
+
         }
     }
 }
