@@ -16,7 +16,7 @@
                 <Label Content="Password" Foreground="White" FontSize="25" Margin="0,30,0,30" HorizontalAlignment="Center" />
                 <PasswordBox    Name="txtPassword"  Background="#325172"    FontSize="25" Foreground="White" Margin="40,0,40,0"   />
                 <Button Name="btnSubmitLogin" Click="btnSubmitLogin_Click" Content="Submit" Background="#325172" Foreground="Black"   FontSize="25" Margin="100,40,100,20"/>
-                <Image Height="125" Width="368" Source="/Sans titre 3.png" Stretch="Uniform" HorizontalAlignment="Center" />
+                <Image Height="125" Width="368" Source="Sans titre 3.png" Stretch="Uniform" />
             </StackPanel>
         </ScrollViewer>
     </Border>

@@ -54,32 +54,48 @@ namespace ProjectCyclistsWPF
                 flag = 2;
             }
             InitializeComponent();
+            if(flag==2)
+            {
+                btnPayment.Visibility = Visibility.Collapsed;
+                notmember();
+            }
+            if(flag==1)
+            {
+                btnCalendar.Visibility = Visibility.Collapsed;
+                notmember();
+            }
+            
         }
-
+        private void notmember()
+        {
+            btnCars.Visibility = Visibility.Collapsed;
+            btnCategories.Visibility = Visibility.Collapsed;
+            btnAccountSettings.Visibility = Visibility.Collapsed;
+        }
         private void btnCalendarLogin_Click_1(object sender, RoutedEventArgs e)
         {
-            Calendar calendarwindow = new Calendar(numbcli);
+            Calendar calendarwindow = new Calendar(m.id);
             calendarwindow.Show();
             this.Close();
         }
 
         private void btnCars_Click(object sender, RoutedEventArgs e)
         {
-            Cars carswindow = new Cars(numbcli);
+            Cars carswindow = new Cars(m.id);
             carswindow.Show();
             this.Close();
         }
 
         private void btnPayment_Click(object sender, RoutedEventArgs e)
         {
-            Payments paymentwindow = new Payments(numbcli);
+            Payments paymentwindow = new Payments(m.id);
             paymentwindow.Show();
             this.Close();
         }
 
         private void btnCategories_Click(object sender, RoutedEventArgs e)
         {
-            Categories categorieswindow = new Categories(numbcli);
+            Categories categorieswindow = new Categories(m.id);
             categorieswindow.Show();
             this.Close();
         }
@@ -93,14 +109,27 @@ namespace ProjectCyclistsWPF
 
         private void btnAccountSettings_Click(object sender, RoutedEventArgs e)
         {
-            AccountSettings accountwindow = new AccountSettings(numbcli);
+            AccountSettings accountwindow = new AccountSettings(m.id);
             accountwindow.Show();
             this.Close();
         }
 
         private void WelcomeLabel_Initialized(object sender, EventArgs e)
         {
-            WelcomeLabel.Content = $"Welcome {m.nom} {m.prenom}";
+            string title="";
+            if(flag==1)
+            {
+                title="Tresorier";
+            }
+            if(flag==2)
+            {
+                title = "Responsable";
+            }
+            if(flag==0)
+            {
+                title = "Welcome";
+            }
+            WelcomeLabel.Content = $"{title} {m.nom} {m.prenom}";
         }
     }
 }
