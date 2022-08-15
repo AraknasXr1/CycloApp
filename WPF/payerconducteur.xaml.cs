@@ -31,12 +31,18 @@ namespace ProjectCyclistsWPF
         private int cyclocheck;
         private String strRegexNumb;
         private Regex regexrule;
+        private Membre mbr;
+        int wallet = 0;
         public payerconducteur(int idcli)
         {
             strRegexNumb = @"[0-9]";
             regexrule = new Regex(strRegexNumb);
             InitializeComponent();
             numbcli= idcli;
+            MembreDAO MDAO = new MembreDAO();
+            mbr = MDAO.Find(idcli);
+            wallet = mbr.Solde;
+
         }
         private void MainMenu_Click(object sender, RoutedEventArgs e)
         {
@@ -56,6 +62,23 @@ namespace ProjectCyclistsWPF
                 concats += m.ToString() + "\n";
             }
             MembreList.Content = concats.Substring(0, concats.Length - 1);
+        }
+
+        private void Payer_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(PayerConducteurId.Text == String.Empty))
+            {
+                if (!(PayerConducteurId.Text == String.Empty))
+                {
+                    mbr.Solde = 0;
+                    MessageBox.Show("Conducteur payé! ");
+                    
+                }
+                else
+                {
+                    MessageBox.Show("Pick a good Id");
+                }
+            }
         }
     }
 }

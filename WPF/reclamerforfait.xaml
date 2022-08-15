@@ -11,6 +11,9 @@
             <StackPanel Margin="20">
                 <Button Name="MainMenu" Click="MainMenu_Click"  FontSize="25" Margin="0,20,0,20" Content="Return" Background="#325172" Foreground="White"/>
                 <Label Name="MembreList" Content="placeholder" Initialized="MembreList_Initialized" Margin="0,20,0,10" Background="#325172"  Foreground="white" FontSize="10"/>
+                <Label Name="l6" FontSize="18" Foreground="White" HorizontalAlignment="Center">Entrez l'id du membre auquel il faut réclamer le forfait :</Label>
+                <TextBox   FontSize="18" Name="ReclamerId" Background="#FF3F4E76" Margin="200,0,200,0"/>
+                <Button  Content="Réclamer le forfait" Name="Reclamer" Click="Reclamer_Click"  HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0" Background="#FF121441" Foreground="#FFB2480C"/>
                 <Separator></Separator>
             </StackPanel>
         </ScrollViewer>

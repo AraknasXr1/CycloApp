@@ -57,5 +57,21 @@ namespace ProjectCyclistsWPF
             }
             MembreList.Content = concats.Substring(0, concats.Length - 1);
         }
+
+        private void Rappel_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(RappelId.Text == String.Empty))
+            {
+                if (!(RappelId.Text == String.Empty))
+                {
+                    MessageBox.Show("Rappel envoyé");
+                    /*Envoyer un rappel au membre*/
+                }
+                else
+                {
+                    MessageBox.Show("Pick a good Id");
+                }
+            }
+        }
     }
 }

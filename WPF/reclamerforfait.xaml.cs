@@ -44,7 +44,6 @@ namespace ProjectCyclistsWPF
             dashboard.Show();
             this.Close();
         }
-
         private void MembreList_Initialized(object sender, EventArgs e)
         {
             List<Membre> mbrlist = new List<Membre>();
@@ -56,6 +55,22 @@ namespace ProjectCyclistsWPF
                 concats += m.ToString() + "\n";
             }
             MembreList.Content = concats.Substring(0, concats.Length - 1);
+        }
+
+        private void Reclamer_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(ReclamerId.Text == String.Empty))
+            {
+                if (!(ReclamerId.Text == String.Empty))
+                {
+                    MessageBox.Show("Réclamation envoyée");
+                    /*add un flag sur membre quand il a une notif ?*/
+                }
+                else
+                {
+                    MessageBox.Show("Pick a good Id");
+                }
+            }
         }
     }
 }

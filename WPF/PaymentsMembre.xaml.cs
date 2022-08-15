@@ -36,7 +36,6 @@ namespace ProjectCyclistsWPF
             MembreDAO MDAO = new MembreDAO();
             mbr = MDAO.Find(idcli);
             wallet = mbr.Solde;
-            //PayDay.Text = $"{wallet}";
             InitializeComponent();
         }
         private void MainMenu_Click(object sender, RoutedEventArgs e)

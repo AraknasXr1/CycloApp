@@ -145,14 +145,13 @@ public class MembreDAO : DAO<Membre>
         {
             try
             {
-                SqlCommand cmd = new SqlCommand("select * from dbo.Client", connection);
-                cmd.Parameters.AddWithValue("id", id);
+                SqlCommand cmd = new SqlCommand("select * from dbo.Clients", connection);
                 connection.Open();
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        Membre mbr = new Membre(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(5), reader.GetString(2), reader.GetInt32(5));
+                        Membre mbr = new Membre(reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetInt32(0), reader.GetString(5), reader.GetInt32(6));
                         Membres.Add(mbr);
                     }
                 }
