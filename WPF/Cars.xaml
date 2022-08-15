@@ -10,15 +10,8 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <Button Name="MainMenu" Click="MainMenu_Click" FontSize="25" Margin="0,20,0,0" Content="Return" Background="#325172" Foreground="White"/>
-                <DataGrid Name="CarGrid" AutoGenerateColumns="False" CanUserAddRows="False" Background="DarkBlue" HorizontalAlignment="Center" VerticalAlignment="Stretch" FontSize="20" Margin="0,10,0,0" FontStyle="Normal" FontStretch="Normal" >
-                    <DataGrid.Columns >
-                        <DataGridTextColumn Binding="{Binding IdCar}" Header="Car ID" Width="100" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding IdCarClient}" Header="IdCarClient" Width="100" IsReadOnly="True" Visibility="Hidden"/>
-                        <DataGridTextColumn Binding="{Binding CarBrand}" Header="Car Brand" Width="100" />
-                        <DataGridTextColumn Binding="{Binding CarSeat}" Header="Seats av." Width="100" />
-                        <DataGridTextColumn Binding="{Binding CarBike}" Header="Bikes av." Width="100" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                <Label Name="CarList" Content="placeholder" Initialized="CarList_Initialized"  Margin="0,20,0,10" Background="#325172"  Foreground="white" FontSize="15"/>
+
                 <Label FontSize="20" Foreground="White" HorizontalAlignment="Center">Car Brand</Label>
                 <TextBox FontSize="20" Name="CarBrand" Background="#FF3F4E76" Margin="100,0,100,0"/>
                 <Label FontSize="20" Foreground="White" HorizontalAlignment="Center">Car Seats available</Label>
@@ -26,9 +19,6 @@
                 <Label FontSize="20" Foreground="White" HorizontalAlignment="Center">Car Bike Space</Label>
                 <TextBox FontSize="20" Name="CarBikeSpace" Background="#FF3F4E76" Margin="100,0,100,0"/>
                 <Button Content="Add a Car" Name="AddCar" Click="AddCar_Click" HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0" Background="#FF090F29" Foreground="#FFCFD90B"/>
-                <Label FontSize="20" Foreground="White" HorizontalAlignment="Center">Car Id you want to update</Label>
-                <TextBox FontSize="20" Name="CarIdUpdateNumber" Background="#FF3F4E76" Margin="100,0,100,0"/>
-                <Button Content="Update Car Info" Name="UpdateCar" Click="UpdateCar_Click" HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0" Background="#FF070529" Foreground="#FF0B8A12"/>
                 <Label FontSize="20" Foreground="White" HorizontalAlignment="Center">Car Id you want to Delete</Label>
                 <TextBox FontSize="20" Name="DeleteCarNumber" Background="#FF3F4E76" Margin="100,0,100,0"/>
                 <Button Content="Delete Car" Name="DeleteCar" Click="DeleteCar_Click" HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0" Background="#FF121441" Foreground="#FFB2480C"/>
