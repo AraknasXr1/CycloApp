@@ -1,25 +1,25 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 
 
-public class CategorieDAO : DAO<Categorie>
+public class TrialisteDAO : DAO<Trialiste>
 {
-    public CategorieDAO() { }
-    public override bool Create(Categorie obj)
+    public TrialisteDAO() { }
+    public override bool Create(Trialiste obj)
     {
         return false;
     }
-    public override bool Delete(Categorie obj)
+    public override bool Delete(Trialiste obj)
     {
         return false;
     }
-    public override bool Update(Categorie obj)
+    public override bool Update(Trialiste obj)
     {
         return false;
     }
-    public override Categorie Find(int id)
+    public override Trialiste Find(int id)
     {
-        Categorie Categorie = null;
+        Trialiste Trialiste = null;
         try
         {
             using (SqlConnection connection = new SqlConnection(this.connectionString))
@@ -31,7 +31,7 @@ public class CategorieDAO : DAO<Categorie>
                 {
                     if (reader.Read())
                     {
-                        Categorie = new Categorie
+                        Trialiste = new Trialiste
                         {
                             /*num = reader.GetInt32("bld_id"),
                             lieuDepart = reader.GetString("bld_DeparturePlace"),
@@ -47,31 +47,30 @@ public class CategorieDAO : DAO<Categorie>
         {
             throw new System.Exception("Une erreur sql s'est produite!");
         }
-        return Categorie;
+        return Trialiste;
     }
-    public List<Categorie> FindAll(Categorie Categorie)
+    public List<Trialiste> FindAll(Trialiste Trialiste)
     {
-        List<Categorie> Categories = new List<Categorie>();
+        List<Trialiste> Trialistes = new List<Trialiste>();
         try
         {
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Clients WHERE cat_cls_id =  @id", connection);
-                cmd.Parameters.AddWithValue("id", Categorie.Num);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Category WHERE cat_cls_id =  @id", connection);
+                cmd.Parameters.AddWithValue("id", Trialiste.Num);
                 connection.Open();
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        Categorie categorie = new Categorie
+                        Trialiste tri = new Trialiste
                         {
                             /*num = reader.GetInt32("bld_id"),
                             lieuDepart = reader.GetString("bld_DeparturePlace"),
                             dateDepart = reader.GetString("bld_DepartureDate")
                             forfait = reader.GetFloat("bld_RidePrice")*/
                         };
-                        Categorie cat = categorie;
-                        Categories.Add(cat);
+                        Trialistes.Add(tri);
                     }
                 }
             }
@@ -80,6 +79,10 @@ public class CategorieDAO : DAO<Categorie>
         {
             throw new System.Exception("Une erreur sql s'est produite!");
         }
-        return Categories;
+        return Trialistes;
     }
 }
+
+
+
+

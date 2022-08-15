@@ -1,77 +1,84 @@
-Public Class InscriptionDAO :  DAO<Inscription>
+using System.Collections.Generic;
+using System.Data.SqlClient;
+
+
+public class InscriptionDAO : DAO<Inscription>
+{
+    public InscriptionDAO() { }
+    public override bool Create(Inscription obj)
     {
-    Public InscriptionDAO() { }
-    Public override bool Create(Inscription obj)
-    {
-        Return False;
+        return false;
     }
-    Public override bool Delete(Inscription obj)
+    public override bool Delete(Inscription obj)
     {
-        Return False;
+        return false;
     }
-    Public override bool Update(Inscription obj)
+    public override bool Update(Inscription obj)
     {
-        Return False;
+        return false;
     }
-    Public override Inscription Find(int id)
+    public override Inscription Find(int id)
     {
         Inscription Inscription = null;
-        Try
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-            Using(SqlConnection connection = New SqlConnection(this.connectionString))
-                {
-                SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Inscription WHERE inscrip_id = @id", connection);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Inscription WHERE inscrip_id = @id", connection);
                 cmd.Parameters.AddWithValue("id", id);
                 connection.Open();
-                Using(SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                    If(reader.Read())
-                        {
-                        Inscription = New Inscription
-                            {
-                                id = reader.GetInt32("bld_id"),
-                                passager = reader.GetBool("bld_passager"),
-                                velo = reader.GetBool("bld_velo")
-                            };
-                    }
-                }
-            }
-        }
-        Catch(SqlException)
-            {
-            Throw New Exception("Une erreur sql s'est produite!");
-        }
-        Return Balade;
-    }
-    Public List<Inscription> FindAll(Classe classe)
-        {
-        List<Inscription> Inscriptions = New List<Inscription>();
-        Try
-            {
-            Using(SqlConnection connection = New SqlConnection(this.connectionString))
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Clients WHERE inscrip_cls_id =  @id", connection);
-                cmd.Parameters.AddWithValue("id", classe.ID);
-                connection.Open();
-                Using(SqlDataReader reader = cmd.ExecuteReader())
+                    if (reader.Read())
                     {
-                    While(reader.Read())
+                        Inscription = new Inscription
                         {
-                        Inscription bld = New Inscription
-                            {
-                                id = reader.GetInt32("bld_id"),
-                                passager = reader.GetBool("bld_passager"),
-                                velo = reader.GetBool("bld_velo")
-                            };
-                        Inscriptions.Add(bld);
+                            /*num = reader.GetInt32("bld_id"),
+                            lieuDepart = reader.GetString("bld_DeparturePlace"),
+                            dateDepart = reader.GetString("bld_DepartureDate")
+                            forfait = reader.GetFloat("bld_RidePrice")*/
+                            /* Utiliser un createur d'objet a implementer dans Balade*/
+                        };
                     }
                 }
             }
         }
-        Catch(SqlException)
-            {
-            Throw New Exception("Une erreur sql s'est produite!");
+        catch (SqlException)
+        {
+            throw new System.Exception("Une erreur sql s'est produite!");
         }
-        Return Inscriptions;
+        return Inscription;
+    }
+    public List<Inscription> FindAll(Inscription Inscription)
+    {
+        List<Inscription> Inscriptions = new List<Inscription>();
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Clients WHERE inscrip_cls_id =  @id", connection);
+                cmd.Parameters.AddWithValue("id", Inscription.Velo);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Inscription inscrip = new Inscription
+                        {
+                            /*num = reader.GetInt32("bld_id"),
+                            lieuDepart = reader.GetString("bld_DeparturePlace"),
+                            dateDepart = reader.GetString("bld_DepartureDate")
+                            forfait = reader.GetFloat("bld_RidePrice")*/
+                        };
+                        Inscriptions.Add(inscrip);
+                    }
+                }
+            }
+        }
+        catch (SqlException)
+        {
+            throw new System.Exception("Une erreur sql s'est produite!");
+        }
+        return Inscriptions;
     }
 }
