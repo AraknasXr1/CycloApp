@@ -175,10 +175,15 @@ namespace ProjectCyclistsWPF
                     //mbr = MDAO.Find(m);
                     //mbr.Set.Notification = 0;
                 }
-                else
+                /*else if (notif!=3)
                 {
                     MessageBox.Show("En ordre de paiement");
-                }
+                    MembreDAO MDAO = new MembreDAO();
+                    Membre mbr = new Membre();
+                    //mbr = MDAO.Find(m);
+                    //mbr.Set.Notification = 3;
+                    // Pour ne l'afficher qu'une fois
+                }*/
                 title = "Welcome";
             }
             WelcomeLabel.Content = $"{title} {m.nom} {m.prenom}";
