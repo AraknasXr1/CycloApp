@@ -1,5 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
+using System.Windows;
+
 public class VehiculeDAO :  DAO<Vehicule>
     {
     public VehiculeDAO(){ }
@@ -9,8 +14,27 @@ public class VehiculeDAO :  DAO<Vehicule>
         }
 public override bool Delete(Vehicule obj)
         {
-        return false;
+        int id = obj.Idvoiture;
+        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
+        {
+            try
+            {
+                String deletebike = $"DELETE FROM Car WHERE idCar=@idvelo";
+                SqlCommand sqldelete = new SqlCommand(deletebike, connection);
+                connection.Open();
+                sqldelete.Parameters.AddWithValue("@idvelo", id);
+                sqldelete.ExecuteNonQuery();
+                MessageBox.Show("Deleted your Car with id number " + id);
+                connection.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return false;
         }
+    }
 public override bool Update(Vehicule obj)
         {
         return false;
@@ -78,4 +102,50 @@ public override Vehicule Find(int id)
             }
             return Vehicules;
         }
+    public bool Create2(int idclient, int carseat, int carbike, string CarBrand)
+    {
+        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
+        {
+            String insertcar = $"INSERT INTO Car(IdCarClient,CarSeat,CarBike,CarBrand) VALUES (@poids,@type,@longueur,@idclientref)";
+            SqlCommand sqlinsert = new SqlCommand(insertcar, connection);
+            sqlinsert.CommandType = CommandType.Text;
+            sqlinsert.Parameters.AddWithValue("@poids", idclient);
+            sqlinsert.Parameters.AddWithValue("@type", carseat);
+            sqlinsert.Parameters.AddWithValue("@longueur", carbike);
+            sqlinsert.Parameters.AddWithValue("@idclientref", CarBrand);
+            connection.Open();
+            sqlinsert.ExecuteNonQuery();
+            connection.Close();
+        }
+        MessageBox.Show("This Car is added");
+        return false;
     }
+    public List<Vehicule> FindListVehicule(int id)
+    {
+        List<Vehicule> Vehicules = new List<Vehicule>();
+        using (SqlConnection connection = new SqlConnection(this.connectionString))
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("select * from dbo.Car WHERE IdCarClient = @id", connection);
+                cmd.Parameters.AddWithValue("id", id);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        //0(idvoiture) , 1(idclient) , 2(Carseat), 3(CarBike), 4(CarBrand)
+                        Vehicule vlo = new Vehicule(reader.GetInt32(0), reader.GetInt32(2), reader.GetInt32(3), reader.GetString(4));
+                        Vehicules.Add(vlo);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw new System.Exception("Une erreur sql s'est produite!");
+            }
+            connection.Close();
+        }
+        return Vehicules;
+    }
+}
