@@ -31,23 +31,26 @@ namespace ProjectCyclistsWPF
         private TresorierDAO TresorierDAO;
         private ResponsableDAO ResponsableDAO;
         public Membre m;
-        private Tresorier Tresorier;
-        private Responsable Responsable;
+        private Tresorier t;
+        private Responsable r;
         private int flag = 0;
         public MainWindow(int n)
         {
+            //flag = 0 (membre simple) , flag = 1 (tresorier) , flag = 2 (responsable)
             MembreDAO md = new MembreDAO();
             TresorierDAO tre = new TresorierDAO();
             ResponsableDAO resp = new ResponsableDAO();
             m=md.Find(n);
-            if((Tresorier = tre.Find(n))!=null)
+            t= tre.Find(n);
+            r= resp.Find(n);
+            if(t.id>0)
             {
-                /* Adapter le component pour le trésorier*/
+                //tresorier
                 flag = 1;
             }
-            else if ((Responsable = resp.Find(n))!=null)
+            if(r.id>0)
             {
-                /*Adapter le component pour un responsable de cat*/
+                //responsable
                 flag = 2;
             }
             InitializeComponent();

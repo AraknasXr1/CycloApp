@@ -22,34 +22,35 @@ public class ResponsableDAO : DAO<Responsable>
     }
     public override Responsable Find(int id)
     {
-        Responsable Responsable = null;
-        try
+        Responsable Responsable = new Responsable();
+        Responsable Responsable2 = new Responsable();
+        int count = 0;
+        using (SqlConnection connection = new SqlConnection(this.connectionString))
         {
-            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            try
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Responsable WHERE resp_id = @id", connection);
-                cmd.Parameters.AddWithValue("id", id);
-                connection.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+
+                SqlCommand queryretrieveinfo = new SqlCommand("SELECT * FROM dbo.Category WHERE IdCatResp = @id", connection);
+                queryretrieveinfo.Parameters.AddWithValue("id", id);
+
+                using (SqlDataReader reader = queryretrieveinfo.ExecuteReader())
                 {
-                    if (reader.Read())
+                    while (reader.Read())
                     {
-                        Responsable = new Responsable
-                        {
-                            /*num = reader.GetInt32("bld_id"),
-                            lieuDepart = reader.GetString("bld_DeparturePlace"),
-                            dateDepart = reader.GetString("bld_DepartureDate")
-                            forfait = reader.GetFloat("bld_RidePrice")*/
-                            /* Utiliser un createur d'objet a implementer dans Balade*/
-                        };
+                        Responsable2.id=reader.GetInt32(2);
+                        
+                        count++;
                     }
                 }
             }
+            catch (SqlException)
+            {
+                throw new System.Exception("Une erreur sql s'est produite!");
+            }
         }
-        catch (SqlException)
-        {
-            throw new System.Exception("Une erreur sql s'est produite!");
-        }
+        Responsable.id = Responsable2.id;
         return Responsable;
     }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 
@@ -19,34 +20,33 @@ public class TresorierDAO : DAO<Tresorier>
     }
     public override Tresorier Find(int id)
     {
-        Tresorier Tresorier = null;
-        try
+        Tresorier Tresorier = new Tresorier();
+        int count = 0;
+        using (SqlConnection connection = new SqlConnection(this.connectionString))
         {
-            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            try
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Tresorier WHERE Tre_id = @id", connection);
-                cmd.Parameters.AddWithValue("id", id);
-                connection.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+
+                SqlCommand queryretrieveinfo = new SqlCommand("SELECT * FROM dbo.Tresorier WHERE IdCliTreso = @id", connection);
+                queryretrieveinfo.Parameters.AddWithValue("id", id);
+
+                using (SqlDataReader reader = queryretrieveinfo.ExecuteReader())
                 {
-                    if (reader.Read())
+                    while (reader.Read())
                     {
-                        Tresorier = new Tresorier
-                        {
-                            /*num = reader.GetInt32("bld_id"),
-                            lieuDepart = reader.GetString("bld_DeparturePlace"),
-                            dateDepart = reader.GetString("bld_DepartureDate")
-                            forfait = reader.GetFloat("bld_RidePrice")*/
-                            /* Utiliser un createur d'objet a implementer dans Balade*/
-                        };
+
+                        count++;
                     }
                 }
             }
+            catch (SqlException)
+            {
+                throw new System.Exception("Une erreur sql s'est produite!");
+            }
         }
-        catch (SqlException)
-        {
-            throw new System.Exception("Une erreur sql s'est produite!");
-        }
+        Tresorier.id = count;
         return Tresorier;
     }
     /*Un seul trésorier*/
