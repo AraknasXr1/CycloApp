@@ -71,7 +71,9 @@ namespace ProjectCyclistsWPF
                 Match matchpayer = regexrule.Match(PayerConducteurId.Text);
                 if (matchpayer.Success)
                 {
-                    mbr.Solde = 0;
+                    int value = int.Parse(PayerConducteurId.Text);
+                    MembreDAO MDAO = new MembreDAO();
+                    MDAO.Updatebyid(value);
                     MessageBox.Show("Conducteur payé! ");
                 }
                 else

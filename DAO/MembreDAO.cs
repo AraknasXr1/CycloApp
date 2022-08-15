@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Net.Sockets;
 
 
 public class MembreDAO : DAO<Membre>
@@ -20,6 +21,21 @@ public class MembreDAO : DAO<Membre>
     }
     public override bool Update(Membre obj)
     {
+        return false;
+    }
+
+    public bool Updatebyid(int id)
+    {
+        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
+        {
+            String updatembr = $"UPDATE dbo.CLIENTS SET WALLET = '0' WHERE IdClient = @id";
+            SqlCommand sqlupdate = new SqlCommand(updatembr, connection);
+            sqlupdate.CommandType = CommandType.Text;
+            sqlupdate.Parameters.AddWithValue("@id", id);
+            connection.Open();
+            sqlupdate.ExecuteNonQuery();
+            connection.Close();
+        }
         return false;
     }
     public override Membre Find(int id)
