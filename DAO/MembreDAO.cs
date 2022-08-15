@@ -139,4 +139,29 @@ public class MembreDAO : DAO<Membre>
         }
         return Membres;
     }
+    public List<Membre> FindListMembre(int id, List<Membre> Membres)
+    {
+        using (SqlConnection connection = new SqlConnection(this.connectionString))
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("select * from dbo.Clients", connection);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Membre mbr = new Membre(reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetInt32(0), reader.GetString(5), reader.GetInt32(6));
+                        Membres.Add(mbr);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw new System.Exception("Une erreur sql s'est produite!");
+            }
+            connection.Close();
+        }
+        return Membres;
+    }
 }
