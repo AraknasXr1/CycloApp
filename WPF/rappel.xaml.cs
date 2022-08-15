@@ -65,6 +65,11 @@ namespace ProjectCyclistsWPF
                 Match matchrappel = regexrule.Match(RappelId.Text);
                 if (matchrappel.Success)
                 {
+                    int value = int.Parse(RappelId.Text);
+                    MembreDAO MDAO = new MembreDAO();
+                    Membre mbr = new Membre();
+                    mbr = MDAO.Find(value);
+                    //mbr.Set.Notification = 2;
                     MessageBox.Show("Rappel envoyé");
                     /*Envoyer un rappel au membre*/
                 }

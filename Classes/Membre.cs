@@ -11,6 +11,7 @@ public class Membre : Personne
     private List<Categorie> categories = new List<Categorie>();
     private List<Velo> velos = new List<Velo>();
     private List<Inscription> inscriptions = new List<Inscription>();
+    private int notification=0;
 
     public Membre(string nom, string prenom, string tel, int id, string motdepasse, int solde)
     {
@@ -29,6 +30,11 @@ public class Membre : Personne
     {
     }
     public int Solde
+    {
+        get;
+        set;
+    }
+    public int Notification
     {
         get;
         set;

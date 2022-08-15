@@ -64,8 +64,12 @@ namespace ProjectCyclistsWPF
                 Match matchreclamer = regexrule.Match(ReclamerId.Text);
                 if (matchreclamer.Success)
                 {
+                    int value = int.Parse(ReclamerId.Text);
+                    MembreDAO MDAO = new MembreDAO();
+                    Membre mbr = new Membre();
+                    mbr=MDAO.Find(value);
+                    //mbr.Set.Notification = 1;
                     MessageBox.Show("Réclamation envoyée");
-                    /*add un flag sur membre quand il a une notif ?*/
                 }
                 else
                 {

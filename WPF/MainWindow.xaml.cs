@@ -158,6 +158,27 @@ namespace ProjectCyclistsWPF
             }
             if(flag==0)
             {
+                int notif = m.Notification;
+                if(notif==1)
+                {
+                    MessageBox.Show("Attention ! Le trésorier a réclamé ton forfait !");
+                    MembreDAO MDAO = new MembreDAO();
+                    Membre mbr = new Membre();
+                    //mbr = MDAO.Find(m);
+                    //mbr.Set.Notification = 0;
+                }
+                else if (notif == 2)
+                {
+                    MessageBox.Show("RAPPEL ! Le trésorier a réclamé ton forfait !");
+                    MembreDAO MDAO = new MembreDAO();
+                    Membre mbr = new Membre();
+                    //mbr = MDAO.Find(m);
+                    //mbr.Set.Notification = 0;
+                }
+                else
+                {
+                    MessageBox.Show("En ordre de paiement");
+                }
                 title = "Welcome";
             }
             WelcomeLabel.Content = $"{title} {m.nom} {m.prenom}";
