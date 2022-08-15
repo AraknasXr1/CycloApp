@@ -1,79 +1,81 @@
-Public Class VeloDAO :  DAO<Velo>
+using System.Collections.Generic;
+using System.Data.SqlClient;
+public class VeloDAO :  DAO<Velo>
     {
-        Public VeloDAO(){ }
-        Public override bool Create(Velo obj)
+    public VeloDAO(){ }
+    public override bool Create(Velo obj)
         {
-            Return False;
+            return false;
         }
-        Public override bool Delete(Velo obj)
+    public override bool Delete(Velo obj)
         {
-            Return False;
+        return false;
         }
-        Public override bool Update(Velo obj)
+    public override bool Update(Velo obj)
         {
-            Return False;
+        return false;
         }
-        Public override Velo Find(int id)
+    public override Velo Find(int id)
         {
             Velo Velo = null;
-            Try
+            try
             {
-                Using (SqlConnection connection = New SqlConnection(this.connectionString))
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Bike WHERE bik_id = @id", connection);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Bike WHERE bik_id = @id", connection);
                     cmd.Parameters.AddWithValue("id", id);
                     connection.Open();
-                    Using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        If (reader.Read())
+                        if (reader.Read())
                         {
-                            Velo = New Velo
+                            Velo = new Velo
                             {
-                                ID = reader.GetInt32("bik_idbike"),
+                                /*ID = reader.GetInt32("bik_idbike"),
                                 bikSeat = reader.GetInt32("bik_poids"),
                                 bikBike = reader.GetInt32("bik_longueur"),
-                                Type = reader.GetString("bik_type")
+                                Type = reader.GetString("bik_type")*/
                             };
                         }
                     }
                 }
             }
-            bikch (SqlException)
+            catch(SqlException)
             {
-                Throw New Exception("Une erreur sql s'est produite!");
+                throw new System.Exception("Une erreur sql s'est produite!");
             }
-            Return Velo;
+            return Velo;
         }
-        Public List<Velo> FindAll(Classe classe)
+        public List<Velo> FindAll(Velo Velo)
         {
-            List<Velo> Velos = New List<Eleve>();
-            Try
+            List<Velo> Velos = new List<Velo>();
+            try
             {
-                Using (SqlConnection connection = New SqlConnection(this.connectionString))
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.bik WHERE bik_cls_id =  @id", connection);
-                    cmd.Parameters.AddWithValue("id", classe.ID);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.bik WHERE bik_cls_id =  @id", connection);
+                    cmd.Parameters.AddWithValue("id", Velo.Longueur);
                     connection.Open();
-                    Using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        While (reader.Read())
+                        while (reader.Read())
                         {
-                            Velo bik = New Velo
+                            Velo bik = new Velo
                             {
-                                ID = reader.GetInt32("bik_idbike"),
+                                /*ID = reader.GetInt32("bik_idbike"),
                                 bikSeat = reader.GetInt32("bik_poids"),
                                 bikBike = reader.GetInt32("bik_longueur"),
-                                Type = reader.GetString("bik_type")
+                                Type = reader.GetString("bik_type")*/
                             };
                             Velos.Add(bik);
                         }
                     }
                 }
             }
-            bikch (SqlException)
+            catch (SqlException)
             {
-                Throw New Exception("Une erreur sql s'est produite!");
+                throw new System.Exception("Une erreur sql s'est produite!");
             }
-            Return Velos;
+            return Velos;
         }
     }

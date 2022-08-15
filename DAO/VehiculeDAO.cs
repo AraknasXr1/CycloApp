@@ -1,77 +1,79 @@
-Public Class VehiculeDAO :  DAO<Vehicule>
+using System.Collections.Generic;
+using System.Data.SqlClient;
+public class VehiculeDAO :  DAO<Vehicule>
     {
-        Public VehiculeDAO(){ }
-        Public override bool Create(Vehicule obj)
+    public VehiculeDAO(){ }
+        public override bool Create(Vehicule obj)
         {
-            Return False;
+            return false;
         }
-        Public override bool Delete(Vehicule obj)
+public override bool Delete(Vehicule obj)
         {
-            Return False;
+        return false;
         }
-        Public override bool Update(Vehicule obj)
+public override bool Update(Vehicule obj)
         {
-            Return False;
+        return false;
         }
-        Public override Vehicule Find(int id)
+public override Vehicule Find(int id)
         {
             Vehicule Vehicule = null;
-            Try
+            try
             {
-                Using (SqlConnection connection = New SqlConnection(this.connectionString))
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Car WHERE car_id = @id", connection);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Car WHERE car_id = @id", connection);
                     cmd.Parameters.AddWithValue("id", id);
                     connection.Open();
-                    Using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        If (reader.Read())
+                        if (reader.Read())
                         {
-                            Vehicule = New Vehicule
+                            Vehicule = new Vehicule
                             {
-                                nbrePlacesMembre = reader.GetInt32("car_idcarclient"),
-                                brePlacesVelo = reader.GetInt32("car_seat")
+                                /*nbrePlacesMembre = reader.GetInt32("car_idcarclient"),
+                                brePlacesVelo = reader.GetInt32("car_seat")*/
                             };
                         }
                     }
                 }
             }
-            carch (SqlException)
+            catch (SqlException)
             {
-                Throw New Exception("Une erreur sql s'est produite!");
+                throw new System.Exception("Une erreur sql s'est produite!");
             }
-            Return Vehicule;
+            return Vehicule;
         }
-        Public List<Vehicule> FindAll(Classe classe)
+    public List<Vehicule> FindAll(Vehicule Vehicule)
         {
-            List<Vehicule> Vehicules = New List<Eleve>();
-            Try
+            List<Vehicule> Vehicules = new List<Vehicule>();
+            try
             {
-                Using (SqlConnection connection = New SqlConnection(this.connectionString))
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    SqlCommand cmd = New SqlCommand("SELECT * FROM dbo.Car WHERE car_cls_id =  @id", connection);
-                    cmd.Parameters.AddWithValue("id", classe.ID);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Car WHERE car_cls_id =  @id", connection);
+                    cmd.Parameters.AddWithValue("id", Vehicule.NbrePlacesMembre);
                     connection.Open();
-                    Using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        While (reader.Read())
+                        while (reader.Read())
                         {
-                            Vehicule car = New Vehicule
+                            Vehicule car = new Vehicule
                             {
-                                ID = reader.GetInt32("car_idcarclient"),
+                                /*ID = reader.GetInt32("car_idcarclient"),
                                 CarSeat = reader.GetInt32("car_seat"),
                                 CarBike = reader.GetInt32("car_bike"),
-                                CarBrand = reader.GetString("car_brand")
+                                CarBrand = reader.GetString("car_brand")*/
                             };
                             Vehicules.Add(car);
                         }
                     }
                 }
             }
-            carch (SqlException)
+            catch (SqlException)
             {
-                Throw New Exception("Une erreur sql s'est produite!");
+                throw new System.Exception("Une erreur sql s'est produite!");
             }
-            Return Vehicules;
+            return Vehicules;
         }
     }
