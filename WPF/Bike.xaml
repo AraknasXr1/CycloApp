@@ -1,0 +1,28 @@
+﻿<Window x:Class="CycloApp.WPF.Bike"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CycloApp.WPF"
+        mc:Ignorable="d"
+        Title="The Cycling club - Bike" Height="800" Width="700" WindowStartupLocation="CenterScreen" Background="#035C7A" Margin="0,20,0,0">
+    <Border Background="#182636" CornerRadius="20"    Margin="50">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <Button Name="MainMenu" Click="MainMenu_Click" FontSize="25" Margin="0,20,0,0" Content="Return" Background="#325172" Foreground="White"/>
+                <Label Name="BikeList" Content="placeholder" Initialized="BikeList_Initialized" Margin="0,20,0,10" Background="#325172"  Foreground="white" FontSize="15"/>
+                <Label FontSize="20" Foreground="White" HorizontalAlignment="Center">Bike Weight</Label>
+                <TextBox FontSize="20" Name="BikeWeight" Background="#FF3F4E76" Margin="100,0,100,0"/>
+                <Label FontSize="20" Foreground="White" HorizontalAlignment="Center">Bike Type</Label>
+                <TextBox FontSize="20" Name="BikeType" Background="#FF3F4E76" Margin="100,0,100,0"/>
+                <Label FontSize="20" Foreground="White" HorizontalAlignment="Center">Bike Length</Label>
+                <TextBox FontSize="20" Name="BikeLength" Background="#FF3F4E76" Margin="100,0,100,0"/>
+                <Button Content="Add a Bike" Name="AddBike" Click="AddBike_Click"  HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0" Background="#FF090F29" Foreground="#FFCFD90B"/>
+                <Label FontSize="20" Foreground="White" HorizontalAlignment="Center">Bike Id you want to Delete</Label>
+                <TextBox FontSize="20" Name="DeleteBikeNumber" Background="#FF3F4E76" Margin="100,0,100,0"/>
+                <Button Content="Delete Bike" Name="DeleteBike" Click="DeleteBike_Click"  HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0" Background="#FF121441" Foreground="#FFB2480C"/>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</Window>

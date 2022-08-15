@@ -100,7 +100,7 @@ namespace ProjectCyclistsWPF
             if (isValid())
             {
                 Balade bl2 = new(idclilocal, DepPlace.Text, DepDate.Text,int.Parse(RidePrices.Text), int.Parse(MaxClient.Text));
-                MessageBox.Show(bl2.ToString() + "\n");
+                //MessageBox.Show(bl2.ToString() + "\n");
                 BaladeDAO BDAO3 = new BaladeDAO();
                 BDAO3.Create2(idclilocal, int.Parse(MaxClient.Text), int.Parse(RidePrices.Text), DepDate.Text, DepPlace.Text);
             }

@@ -12,11 +12,11 @@
                 <Label Name="WelcomeLabel" Content="Welcome PlaceHolder" Initialized="WelcomeLabel_Initialized" Background="#325172" Foreground="Black" FontSize="25"/>
                 <Button Name="btnCalendar" Click="btnCalendarLogin_Click_1" Content="Calendar" Background="#325172" Foreground="Black"   FontSize="25" Margin="0,20,0,20"/>
                 <Button Name="btnCars"  Click="btnCars_Click" Content="Cars" Background="#325172" Foreground="Black"   FontSize="25" Margin="0,20,0,20"/>
+                <Button Name="btnBike" Click="btnBike_Click"  Content="Bike" Background="#325172" Foreground="Black"   FontSize="25" Margin="0,20,0,20"/>
                 <Button Name="btnCategories" Click="btnCategories_Click" Content="Categories" Background="#325172" Foreground="Black"   FontSize="25" Margin="0,20,0,20"/>
                 <Button Name="btnPayment" Click="btnPayment_Click" Content="Payments" Background="#325172" Foreground="Black"   FontSize="25" Margin="0,20,0,20"/>
                 <Button Name="btnAccountSettings" Click="btnAccountSettings_Click" Content="Account Settings" Background="#325172" Foreground="DarkGray" FontSize="25" Margin="0,20,0,20" />
                 <Button Name="btnUnlog" Click="btnUnlog_Click"  Content="Unlog" Background="#325172" Foreground="Tomato" FontSize="25"  Margin="0,20,0,20"/>
-                <Image Height="125" Width="368" Source="Sans titre 3.png" Stretch="Uniform" HorizontalAlignment="Center" />
             </StackPanel>
         </ScrollViewer>
     </Border>

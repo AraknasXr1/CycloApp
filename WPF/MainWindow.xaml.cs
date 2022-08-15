@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Configuration;
 using System.Collections.Specialized;
+using CycloApp.WPF;
 
 namespace ProjectCyclistsWPF
 {
@@ -68,6 +69,7 @@ namespace ProjectCyclistsWPF
         }
         private void notmember()
         {
+            btnBike.Visibility = Visibility.Collapsed;
             btnCars.Visibility = Visibility.Collapsed;
             btnCategories.Visibility = Visibility.Collapsed;
             btnAccountSettings.Visibility = Visibility.Collapsed;
@@ -159,6 +161,13 @@ namespace ProjectCyclistsWPF
                 title = "Welcome";
             }
             WelcomeLabel.Content = $"{title} {m.nom} {m.prenom}";
+        }
+
+        private void btnBike_Click(object sender, RoutedEventArgs e)
+        {
+            Bike bike = new(m.id);
+            bike.Show();
+            this.Close();
         }
     }
 }

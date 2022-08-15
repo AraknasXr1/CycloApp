@@ -2,30 +2,47 @@ using System.Collections.Generic;
 
 public class Velo
 {
-    private float poids = 0;
+    private int id = 0;
+    private int poids = 0;
     private string type = "";
-    private float longueur = 0;
+    private int longueur = 0;
     private List<Inscription> inscriptions = new List<Inscription>();
-    public Velo(string type, float poids, float longueur)
+    public Velo(string type, int poids, int longueur)
     {
         this.type = type;
         this.poids = poids;
         this.longueur = longueur;
     }
-    public float Poids
+    public Velo(int id,string type, int poids, int longueur)
     {
-        get { return poids; }
-        set { poids = value; }
+        this.id = id;
+        this.type = type;
+        this.poids = poids;
+        this.longueur = longueur;
+    }
+    public override string ToString()
+    {
+        return "Velo: Id:"+id+" Type:" + type + " P:" + poids + " L:" + longueur;
+    }
+    public int Poids
+    {
+        get;
+        set;
     }
     public string Type
     {
-        get { return type; }
-        set { type = value; }
+        get;
+        set;
     }
-    public float Longueur
+    public int Id
     {
-        get { return longueur; }
-        set { longueur = value; }
+        get;
+        set;
+    }
+    public int Longueur
+    {
+        get;
+        set;
     }
     public Velo() { }
     public List<Inscription> Inscriptions
