@@ -10,16 +10,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="20">
                 <Button Name="MainMenu" Click="MainMenu_Click" FontSize="25" Margin="0,20,0,20" Content="Return" Background="#325172" Foreground="White"/>
-                <TextBlock Text="Choose your Category" FontSize="25" Foreground="White" HorizontalAlignment="Center" Margin="0,20,0,20"/>
-                <Separator></Separator>
-                <Label FontSize="25" Foreground="White" HorizontalAlignment="Center" Margin="0,20,0,20" >VTT</Label>
-                <CheckBox Name="VttCheck" HorizontalAlignment="Center" Margin="0,20,0,20" IsChecked="False"></CheckBox>
-                <Separator></Separator>
-                <Separator></Separator>
-                <Label FontSize="25" Foreground="White" HorizontalAlignment="Center" Margin="0,20,0,20">Cyclo</Label>
-                <CheckBox Name="CycloCheck" HorizontalAlignment="Center" Margin="0,20,0,20" IsChecked="False"></CheckBox>
-                <Separator></Separator>
-                <Button Name="ChangeCat" Click="ChangeCat_Click" Foreground="Tomato" Content="Change your Category" Background="#325172" Margin="0,40,0,20" FontSize="25"/>
+                <Label Name="CatList" Content="placeholder" Initialized="CatList_Initialized" Margin="0,20,0,10" Background="#325172"  Foreground="white" FontSize="15"/>
             </StackPanel>
         </ScrollViewer>
     </Border>

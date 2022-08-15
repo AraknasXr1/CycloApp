@@ -37,8 +37,6 @@ namespace ProjectCyclistsWPF
             numbcli = idcli;
             regexrule = new Regex(strRegexNumb);
             InitializeComponent();
-            binddatagrid();
-            binddatagrid2();
 
         }
 
@@ -47,53 +45,6 @@ namespace ProjectCyclistsWPF
             Calendar dashboard = new Calendar(numbcli);
             dashboard.Show();
             this.Close();
-        }
-        private void binddatagrid2()
-        {
-            SqlConnection connection = new SqlConnection();
-            connection.ConnectionString = ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString;
-            connection.Open();
-            SqlCommand datagridbinding2 = new SqlCommand();
-            datagridbinding2.CommandText = $"SELECT * FROM Car WHERE IdCarClient = {numbcli}";
-            datagridbinding2.Connection = connection;
-            SqlDataAdapter dataadapter = new SqlDataAdapter(datagridbinding2);
-            DataTable datatable = new DataTable("Car");
-            dataadapter.Fill(datatable);
-            CarGrid.ItemsSource = datatable.DefaultView;
-        }
-
-        private void binddatagrid()
-        {
-            SqlConnection connection = new SqlConnection();
-            connection.ConnectionString = ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString;
-            connection.Open();
-            SqlCommand datagridbinding = new SqlCommand();
-            Checkcats();
-            if (vttbool)
-            {
-                if (cyclobool)
-                {
-                    string commandotext = $"SELECT * FROM Ride r inner join LinkRide l on r.IdRide = L.IdRide inner join Category ON Category.IdCat=r.IdCatRide WHERE IdCatRide In(1,2) and IdCliRide={numbcli}";
-                    datagridbinding.CommandText = commandotext;
-                }
-                else
-                {
-                    datagridbinding.CommandText = $"SELECT * FROM Ride r inner join LinkRide l on r.IdRide = L.IdRide inner join Category ON Category.IdCat=r.IdCatRide WHERE IdCatRide = 1 and IdCliRide={numbcli} ";
-                }
-            }
-            else
-            {
-                if (cyclobool)
-                {
-                    datagridbinding.CommandText = $"SELECT * FROM Ride r inner join LinkRide l on r.IdRide = L.IdRide inner join Category ON Category.IdCat=r.IdCatRide WHERE IdCatRide = 2 and IdCliRide={numbcli}";
-                }
-            }
-            datagridbinding.Connection = connection;
-            SqlDataAdapter dataadapter = new SqlDataAdapter(datagridbinding);
-            DataTable datatable = new DataTable("Ride");
-            dataadapter.Fill(datatable);
-            Ride.ItemsSource = datatable.DefaultView;
-
         }
 
         private void Checkcats()
@@ -139,7 +90,6 @@ namespace ProjectCyclistsWPF
                         sqldelete.ExecuteNonQuery();
                         MessageBox.Show("Deleted your Ride with id number " + DeleteRideNumber.Text);
                         connection.Close();
-                        binddatagrid();
                     }
                 }
                 else
@@ -164,7 +114,6 @@ namespace ProjectCyclistsWPF
                     sqlinsert.ExecuteNonQuery();
                     MessageBox.Show("Car added to the ride");
                     connection.Close();
-                    binddatagrid();
                 }
             }
         }
