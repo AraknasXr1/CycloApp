@@ -1,16 +1,37 @@
+using System;
 using System.Collections.Generic;
+using System.Windows.Controls;
+using System.Xml.Linq;
+
 public class Membre : Personne
 {
-    private float solde = 0;
+    private int ID;
+    private int solde = 0;
     private List<Vehicule> vehicules = new List<Vehicule>();
     private List<Categorie> categories = new List<Categorie>();
     private List<Velo> velos = new List<Velo>();
     private List<Inscription> inscriptions = new List<Inscription>();
-   
+
+    public Membre(string nom, string prenom, string tel, int id, string motdepasse, int solde)
+    {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.tel = tel;
+        this.id = id;
+        motDePasse = motdepasse;
+        this.solde = solde;
+    }
+    public override string ToString()
+    {
+        return "Membre: " + nom + " " + prenom +" "+ tel + " " + id + " " + motDePasse + " " + solde;
+    }
+    public Membre()
+    {
+    }
     public float Solde
     {
-        get { return solde; }
-        set { solde = value; }
+        get;
+        set;
     }
     public List<Inscription> Inscriptions
     {
@@ -58,11 +79,33 @@ public class Membre : Personne
         set { velos = value; }
     }
 
-    public override string nom { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    protected override string prenom { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    protected override string tel { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    protected override string id { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    protected override string motDePasse { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public override string nom
+    {
+        get;
+        set;
+    }
+    public override string prenom
+    {
+        get;
+        set;
+    }
+    public override string tel
+    {
+        get;
+        set;
+    }
+    public override int id
+    {
+        get;
+        set;
+    }
+    public override string motDePasse
+    {
+        get;
+        set;
+    }
+
+    public int Id { get; internal set; }
 
     public void AddVelo(Velo velo)
     {

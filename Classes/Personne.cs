@@ -5,22 +5,22 @@ abstract public class Personne
         get; 
         set; 
     }
-    protected abstract string prenom
+    public abstract string prenom
     {
         get;
         set;
     }
-    protected abstract string tel
+    public abstract string tel
     {
         get;
         set;
     }
-    protected abstract string id
+    public abstract int id
     {
         get;
         set;
     }
-    protected abstract string motDePasse
+    public abstract string motDePasse
     {
         get;
         set;

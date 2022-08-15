@@ -114,7 +114,7 @@ public class ResponsableDAO : DAO<Responsable>
                             dateDepart = reader.GetString("bld_DepartureDate")
                             forfait = reader.GetFloat("bld_RidePrice")*/
                         };
-                        Responsable.Add(resp);
+                        Responsables.Add(resp);
                     }
                 }
             }

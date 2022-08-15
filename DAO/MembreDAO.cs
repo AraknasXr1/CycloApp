@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 
 public class MembreDAO : DAO<Membre>
 {
+    public Membre membre;
     public MembreDAO() { }
     public override bool Create(Membre obj)
     {
@@ -23,35 +24,46 @@ public class MembreDAO : DAO<Membre>
     }
     public override Membre Find(int id)
     {
-        Membre Membre = null;
-        try
+        Membre logmembre = new Membre();
+        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
         {
-            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            try
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Clients WHERE bld_id = @id", connection);
-                cmd.Parameters.AddWithValue("id", id);
-                connection.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+                String queryretrieveinfo = "SELECT * FROM dbo.Clients WHERE IdClient = @id";
+                SqlCommand sql = new SqlCommand(queryretrieveinfo, connection);
+                sql.CommandType = CommandType.Text;
+                sql.Parameters.AddWithValue("@id", id);
+                int idclient = Convert.ToInt32(sql.ExecuteScalar());
+                if (idclient > 0)
                 {
-                    if (reader.Read())
+                    using (SqlDataReader readclientinfo = sql.ExecuteReader())
                     {
-                        Membre = new Membre
+                        while (readclientinfo.Read())
                         {
-                            /*num = reader.GetInt32("bld_id"),
-                            lieuDepart = reader.GetString("bld_DeparturePlace"),
-                            dateDepart = reader.GetString("bld_DepartureDate")
-                            forfait = reader.GetFloat("bld_RidePrice")*/
-                            /* Utiliser un createur d'objet a implementer dans Balade*/
-                        };
+                          //0 = Id du membre , 1 = ClientLogin, 2 = Prenom, 3 = Nom , 4 = Telephone, 5 = Mot de Passe, 6 = Wallet(solde)
+                           Membre logmembre2 = new Membre(readclientinfo.GetString(2), readclientinfo.GetString(3), readclientinfo.GetString(4),readclientinfo.GetInt32(0),readclientinfo.GetString(5), readclientinfo.GetInt32(6));
+                            logmembre = logmembre2;
+                        }
                     }
                 }
+                else
+                {
+
+                }
+                }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
             }
         }
-        catch (SqlException)
-        {
-            throw new System.Exception("Une erreur sql s'est produite!");
-        }
-        return Membre;
+        
+        return logmembre;
     }
 
     public int Login(string login, string password)

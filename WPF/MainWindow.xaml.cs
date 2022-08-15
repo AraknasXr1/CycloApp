@@ -27,24 +27,16 @@ namespace ProjectCyclistsWPF
         private int numbcli;
         private String ClientName;
         private String LastName;
+        private MembreDAO MembreDAOp;
+        private TresorierDAO TresorierDAO;
+        private ResponsableDAO ResponsableDAO;
+        public Membre m;
+        private Tresorier Tresorier;
+        private Responsable Responsable;
         public MainWindow(int n)
         {
-            numbcli = n;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
-            {   
-                String queryretrieveinfo = $"SELECT * FROM Clients WHERE IdClient={numbcli}";
-                SqlCommand sqlcmdretrieve = new SqlCommand(queryretrieveinfo, connection);
-                connection.Open();
-                using( SqlDataReader readclientinfo = sqlcmdretrieve.ExecuteReader())
-                {
-                    while (readclientinfo.Read())
-                    {
-                        ///indice tableau 
-                        ClientName = readclientinfo.GetString(2);
-                        LastName = readclientinfo.GetString(3);
-                    }
-                }
-            }
+            MembreDAO md = new MembreDAO();
+            m=md.Find(n);
             InitializeComponent();
         }
 
@@ -92,7 +84,7 @@ namespace ProjectCyclistsWPF
 
         private void WelcomeLabel_Initialized(object sender, EventArgs e)
         {
-            WelcomeLabel.Content = $"Welcome {ClientName} {LastName}";
+            WelcomeLabel.Content = $"Welcome {m.nom} {m.prenom}";
         }
     }
 }
