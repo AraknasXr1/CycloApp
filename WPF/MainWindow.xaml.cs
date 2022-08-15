@@ -105,9 +105,21 @@ namespace ProjectCyclistsWPF
 
         private void btnPayment_Click(object sender, RoutedEventArgs e)
         {
-            Payments paymentwindow = new Payments(m.id);
-            paymentwindow.Show();
-            this.Close();
+            if (flag == 1)
+            {
+                //lorsq'uil est responsable on prends l'id du membre et l'id du tresorier
+                Payments paymentwindow = new Payments(m.id);
+                paymentwindow.Show();
+                this.Close();
+            }
+            else
+            {
+                //c'est un membre simple si le flag est 1(acces pour le tresorier)
+                PaymentsMembre paymentwindow = new PaymentsMembre(m.id);
+                paymentwindow.Show();
+                this.Close();
+            }
+
         }
 
         private void btnCategories_Click(object sender, RoutedEventArgs e)

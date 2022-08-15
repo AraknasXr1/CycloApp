@@ -34,15 +34,26 @@ namespace ProjectCyclistsWPF
         public PaymentsMembre(int idcli)
         {
             MembreDAO MDAO = new MembreDAO();
-            mbr = MDAO.Find(numbcli);
+            mbr = MDAO.Find(idcli);
             wallet = mbr.Solde;
-            PayDay.Text = $"{wallet}";
+            //PayDay.Text = $"{wallet}";
+            InitializeComponent();
         }
         private void MainMenu_Click(object sender, RoutedEventArgs e)
         {
             MainWindow dashboard = new MainWindow(numbcli);
             dashboard.Show();
             this.Close();
+        }
+
+        private void PayDay_Initialized(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void RideList_Initialized(object sender, EventArgs e)
+        {
+            RideList.Content = "something";
         }
     }
 }
