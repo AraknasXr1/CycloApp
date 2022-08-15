@@ -61,7 +61,8 @@ namespace ProjectCyclistsWPF
         {
             if (!(ReclamerId.Text == String.Empty))
             {
-                if (!(ReclamerId.Text == String.Empty))
+                Match matchreclamer = regexrule.Match(ReclamerId.Text);
+                if (matchreclamer.Success)
                 {
                     MessageBox.Show("Réclamation envoyée");
                     /*add un flag sur membre quand il a une notif ?*/

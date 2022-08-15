@@ -62,7 +62,8 @@ namespace ProjectCyclistsWPF
         {
             if (!(RappelId.Text == String.Empty))
             {
-                if (!(RappelId.Text == String.Empty))
+                Match matchrappel = regexrule.Match(RappelId.Text);
+                if (matchrappel.Success)
                 {
                     MessageBox.Show("Rappel envoyé");
                     /*Envoyer un rappel au membre*/
