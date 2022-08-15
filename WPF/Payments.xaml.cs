@@ -36,23 +36,23 @@ namespace ProjectCyclistsWPF
         }
         private void ReclamerForfait_click(object sender, RoutedEventArgs e)
         {
-            /*reclamerforfait reclamerforfait = new ReclamerForfait(numbcli);
-            ReclamerForfait.Show();
-            this.Close();*/
+            reclamerforfait reclamerforfait = new reclamerforfait(numbcli);
+            reclamerforfait.Show();
+            this.Close();
         }
 
         private void PayerConducteur_click(object sender, RoutedEventArgs e)
         {
-            /*PayerConducteur PayerConducteur = new PayerConducteur(numbcli);
-            PayerConducteur.Show();
-            this.Close();*/
+            payerconducteur payerconducteur = new payerconducteur(numbcli);
+            payerconducteur.Show();
+            this.Close();
         }
 
         private void Rappel_click(object sender, RoutedEventArgs e)
         {
-            /*Rappel Rappel = new Rappel(numbcli);
+            rappel rappel = new rappel(numbcli);
             rappel.Show();
-            this.Close();*/
+            this.Close();
         }
 
         private void MainMenu_Click(object sender, RoutedEventArgs e)
