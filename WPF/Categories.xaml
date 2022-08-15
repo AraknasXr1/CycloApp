@@ -9,8 +9,19 @@
     <Border Background="#182636" CornerRadius="20"    Margin="50">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="20">
-                <Button Name="MainMenu" Click="MainMenu_Click" FontSize="25" Margin="0,20,0,20" Content="Return" Background="#325172" Foreground="White"/>
-                <Label Name="CatList" Content="placeholder" Initialized="CatList_Initialized" Margin="0,20,0,10" Background="#325172"  Foreground="white" FontSize="15"/>
+                <Button Name="MainMenu" Click="MainMenu_Click" FontSize="25" Margin="0,10,0,10" Content="Return" Background="#325172" Foreground="White"/>
+                <Label FontSize="20" Foreground="White" HorizontalAlignment="Center">List of your categories</Label>
+                <Label Name="CatList" Content="placeholder" Initialized="CatList_Initialized" Margin="0,10,0,10" Background="#325172"  Foreground="white" FontSize="15"/>
+                <Label FontSize="20" Foreground="White" HorizontalAlignment="Center">List of Categories</Label>
+                <Label Name="CatFullList" Content="placeholder" Initialized="CatFullList_Initialized"  Margin="0,10,0,10" Background="#325172"  Foreground="white" FontSize="15"/>
+                <Label FontSize="20" Foreground="White" HorizontalAlignment="Center">Category Id you want to Delete</Label>
+                <TextBox FontSize="20" Name="DeleteCat" Background="#FF3F4E76" Margin="100,0,100,0"/>
+                <Button Content="Delete Category" Name="DeleteCat2" Click="DeleteCat_Click" HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0" Background="#FF121441" Foreground="#FFB2480C"/>
+                <Label FontSize="20" Foreground="White" HorizontalAlignment="Center">Category Id you want to Add</Label>
+                <TextBox FontSize="20" Name="AddCatNumber" Background="#FF3F4E76" Margin="100,0,100,0"/>
+                <Button Content="Add a Category" Name="AddCay" Click="AddCay_Click"  HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0" Background="#FF090F29" Foreground="#FFCFD90B"/>
+                
+
             </StackPanel>
         </ScrollViewer>
     </Border>

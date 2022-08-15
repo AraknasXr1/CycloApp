@@ -33,6 +33,7 @@ namespace ProjectCyclistsWPF
         int wallet = 0;
         public PaymentsMembre(int idcli)
         {
+            numbcli = idcli;
             MembreDAO MDAO = new MembreDAO();
             mbr = MDAO.Find(idcli);
             wallet = mbr.Solde;

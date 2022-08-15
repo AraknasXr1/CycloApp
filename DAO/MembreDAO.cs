@@ -5,7 +5,8 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net.Sockets;
-
+using System.Runtime.InteropServices;
+using System.Windows;
 
 public class MembreDAO : DAO<Membre>
 {
@@ -179,5 +180,111 @@ public class MembreDAO : DAO<Membre>
             connection.Close();
         }
         return Membres;
+    }
+    public List<string> Findcat(int id)
+    {
+        List<string> cat = new List<string>();
+        using (SqlConnection connection = new SqlConnection(this.connectionString))
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SELECT cli.IdClient, Catname,IdCategory from Clients as cli left join LinkCat on Cli.IdClient = LinkCat.IdClient inner join Category on Category.IdCat = LinkCat.IdCategory where cli.IdClient = @id", connection);
+                cmd.Parameters.AddWithValue("id", id);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        cat.Add("Id:" + reader.GetInt32(2)+" "+reader.GetString(1));
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw new System.Exception("Une erreur sql s'est produite!");
+            }
+            connection.Close();
+        }
+        return cat;
+    }
+    public List<string> Findallcat()
+    {
+        List<string> cat = new List<string>();
+        using (SqlConnection connection = new SqlConnection(this.connectionString))
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SELECT Catname, IdCat from Category ", connection);
+
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        cat.Add("Id:" + reader.GetInt32(1) +" "+ reader.GetString(0));
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw new System.Exception("Une erreur sql s'est produite!");
+            }
+            connection.Close();
+        }
+        return cat;
+    }
+    public bool addcat(int idmembre, int idADD)
+    {
+        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
+        {
+            String insertcat = $"INSERT INTO LinkCat(IdClient,IdCategory) VALUES (@idmembre,@idADD)";
+            SqlCommand sqlinsert = new SqlCommand(insertcat, connection);
+            sqlinsert.CommandType = CommandType.Text;
+            sqlinsert.Parameters.AddWithValue("@idmembre", idmembre);
+            sqlinsert.Parameters.AddWithValue("@idADD", idADD);
+            connection.Open();
+            sqlinsert.ExecuteNonQuery();
+            connection.Close();
+        }
+        MessageBox.Show("This Category is added");
+        //update Clients set Clients.Wallet = Clients.Wallet + 20 where Clients.IdClient = 6
+        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
+        {
+            connection.Open();
+            String querymodifyclient = $"update Clients set Clients.Wallet = Clients.Wallet + 5 where Clients.IdClient = @idmembre";
+            using (SqlCommand sqlcmdupdate = new SqlCommand(querymodifyclient, connection))
+            {
+                sqlcmdupdate.Parameters.AddWithValue("@idmembre", idmembre);
+                int rows = sqlcmdupdate.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+        return true;
+    }
+
+    public bool delcat(int idmembre, int iddelete)
+    {
+        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
+        {
+            try
+            {
+                String deletebike = $"DELETE FROM LinkCat WHERE IdClient=@idmembre and IdCategory=@iddelete";
+                SqlCommand sqldelete = new SqlCommand(deletebike, connection);
+                connection.Open();
+                sqldelete.Parameters.AddWithValue("@idmembre", idmembre);
+                sqldelete.Parameters.AddWithValue("@iddelete", iddelete);
+                sqldelete.ExecuteNonQuery();
+                MessageBox.Show("Deleted your Cat with id number " + iddelete);
+                connection.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return true;
+        }
+
+        
     }
 }

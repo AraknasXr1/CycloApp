@@ -34,29 +34,56 @@ namespace ProjectCyclistsWPF
             numbcli = idcli;
             InitializeComponent();
         }
-        
+
 
         private void MainMenu_Click(object sender, RoutedEventArgs e)
         {
 
-                MainWindow dashboard = new MainWindow(numbcli);
-                dashboard.Show();
-                this.Close();
-            
+            MainWindow dashboard = new MainWindow(numbcli);
+            dashboard.Show();
+            this.Close();
+
         }
 
         private void CatList_Initialized(object sender, EventArgs e)
         {
-            List<Balade> balist = new List<Balade>();
-            BaladeDAO BDAO = new BaladeDAO();
-            balist = BDAO.FindListBalade(idclilocal, balist);
+            //"SELECT cli.IdClient, Catname, IdCategory from Clients as cli left join LinkCat on Cli.IdClient = LinkCat.IdClient inner join Category on Category.IdCat = LinkCat.IdCategory where cli.IdClient = 6"
+            MembreDAO BDAO = new MembreDAO();
+            List<string> list = new List<string>();
+            list = BDAO.Findcat(numbcli);
             string concats = "";
-            foreach (Balade b in balist)
+            foreach (string b in list)
             {
                 concats += b.ToString() + "\n";
 
             }
-            CatList.Content = concats.Substring(0, concats.Length - 1);
+            CatList.Content = concats;
+        }
+
+        private void CatFullList_Initialized(object sender, EventArgs e)
+        {
+            MembreDAO BDAO = new MembreDAO();
+            List<string> list = new List<string>();
+            list = BDAO.Findallcat();
+            string concats = "";
+            foreach (string b in list)
+            {
+                concats += b.ToString() + "\n";
+
+            }
+            CatFullList.Content = concats;
+        }
+
+        private void DeleteCat_Click(object sender, RoutedEventArgs e)
+        {
+            MembreDAO MDAO = new();
+            MDAO.delcat(numbcli, int.Parse(DeleteCat.Text));
+        }
+
+        private void AddCay_Click(object sender, RoutedEventArgs e)
+        {
+            MembreDAO MDAO = new();
+            MDAO.addcat(numbcli, int.Parse(AddCatNumber.Text));
         }
     }
 }
