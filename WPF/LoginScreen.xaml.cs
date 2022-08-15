@@ -25,6 +25,7 @@ namespace ProjectCyclistsWPF
     {
         private string login="";
         private string password="";
+        private int idclient;
         
         public LoginScreen()
         {
@@ -33,7 +34,8 @@ namespace ProjectCyclistsWPF
         
         private void btnSubmitLogin_Click(object sender, RoutedEventArgs e)
         {
-            login=txtUsername.Text;
+            MembreDAO membreDAO = new MembreDAO();
+            login =txtUsername.Text;
             password = txtPassword.Password;
             if(login.Equals("") | password.Equals(""))
             {
@@ -41,43 +43,16 @@ namespace ProjectCyclistsWPF
             }
             else
             {
-                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
+                idclient = membreDAO.Login(login,password);
+                if(idclient == 0)
                 {
-                    try
-                    {
-                        if (connection.State == ConnectionState.Closed)
-                            connection.Open();
-                        String querylogin = "SELECT * FROM dbo.Clients WHERE ClientLogin like @ClientLogin AND Password like @Password";
-                        SqlCommand sqlcmdlogin = new SqlCommand(querylogin, connection);
-                        sqlcmdlogin.CommandType = CommandType.Text;
-                        sqlcmdlogin.Parameters.AddWithValue("@ClientLogin", txtUsername.Text);
-                        sqlcmdlogin.Parameters.AddWithValue("@Password", txtPassword.Password);
-                        int idclient = Convert.ToInt32(sqlcmdlogin.ExecuteScalar());
-                        if (idclient > 0)
-                        {
-                            using (SqlDataReader reader = sqlcmdlogin.ExecuteReader())
-                            {
-                                while (reader.Read())
-                                {
-                                    MainWindow dashboard = new MainWindow(idclient);
-                                    dashboard.Show();
-                                    this.Close();
-                                }
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Username or Password is incorrect");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    finally
-                    {
-                        connection.Close();
-                    }
+                    MessageBox.Show("Invalid credentials");
+                }
+                else
+                {
+                    MainWindow dashboard = new MainWindow(idclient);
+                    dashboard.Show();
+                    this.Close();
                 }
             }
         }
