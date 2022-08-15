@@ -33,13 +33,29 @@ namespace ProjectCyclistsWPF
         private Regex regexrule;
         public reclamerforfait(int idcli)
         {
-
+            strRegexNumb = @"[0-9]";
+            regexrule = new Regex(strRegexNumb);
+            InitializeComponent();
+            numbcli = idcli;
         }
         private void MainMenu_Click(object sender, RoutedEventArgs e)
         {
             Payments dashboard = new Payments(numbcli);
             dashboard.Show();
             this.Close();
+        }
+
+        private void MembreList_Initialized(object sender, EventArgs e)
+        {
+            List<Membre> mbrlist = new List<Membre>();
+            MembreDAO MDAO = new MembreDAO();
+            mbrlist = MDAO.FindListMembre(numbcli, mbrlist);
+            string concats = "";
+            foreach (Membre m in mbrlist)
+            {
+                concats += m.ToString() + "\n";
+            }
+            MembreList.Content = concats.Substring(0, concats.Length - 1);
         }
     }
 }

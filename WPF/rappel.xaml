@@ -10,7 +10,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="20">
                 <Button Name="MainMenu" Click="MainMenu_Click"  FontSize="25" Margin="0,20,0,20" Content="Return" Background="#325172" Foreground="White"/>
-                
+                <Label Name="MembreList" Content="placeholder" Initialized="MembreList_Initialized" Margin="0,20,0,10" Background="#325172"  Foreground="white" FontSize="10"/>
                 <Separator></Separator>
             </StackPanel>
         </ScrollViewer>

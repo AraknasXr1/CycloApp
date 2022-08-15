@@ -34,26 +34,6 @@ namespace ProjectCyclistsWPF
             numbcli = idcli;
             InitializeComponent();
         }
-        /*private void ReclamerForfait_click(object sender, RoutedEventArgs e)
-        {
-            reclamerforfait reclamerforfait = new reclamerforfait(numbcli);
-            reclamerforfait.Show();
-            this.Close();
-        }
-
-        private void PayerConducteur_click(object sender, RoutedEventArgs e)
-        {
-            payerconducteur payerconducteur = new payerconducteur(numbcli);
-            payerconducteur.Show();
-            this.Close();
-        }
-
-        private void Rappel_click(object sender, RoutedEventArgs e)
-        {
-            rappel rappel = new rappel(numbcli);
-            rappel.Show();
-            this.Close();
-        }*/
 
         private void MainMenu_Click(object sender, RoutedEventArgs e)
         {
