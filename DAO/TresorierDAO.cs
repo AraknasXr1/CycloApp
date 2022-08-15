@@ -8,8 +8,10 @@ public class TresorierDAO : DAO<Tresorier>
     public TresorierDAO() { }
     public override bool Create(Tresorier obj)
     {
-        /*Tresorier tr = new Tresorier();
-        tr.reclamerForfait();*/
+        Tresorier tr = new Tresorier();
+        tr.reclamerForfait(/*int id*/);
+        tr.envoiLettreRappel(/*int id*/);
+        tr.payerConducteur(/*int id*/);
         return false;
     }
     public override bool Delete(Tresorier obj)
@@ -21,8 +23,6 @@ public class TresorierDAO : DAO<Tresorier>
         return false;
     }
 
-    
-    
     public override Tresorier Find(int id)
     {
         Tresorier Tresorier = new Tresorier();

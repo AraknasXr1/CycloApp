@@ -47,17 +47,31 @@ public class Tresorier : Personne
         set;
     }
 
-    public void envoiLettreRappel()
+    public void envoiLettreRappel(/*int idmbr*/)
     {
-
+        /* Réclamer forfait et envoi lettrerappel ==
+         Envoi d'un toast
+        new ToastContentBuilder()
+        .AddArgument("action", "viewConversation")
+        .AddArgument("conversationId", num)
+        .AddText("textbox")
+        .Show();
+         */
     }
-    public void payerConducteur()
+    public void payerConducteur(/*int idmbr*/)
     {
-
+        /* Rembourser le membre => set le wallet du membre à 0*/
     }
-    public void reclamerForfait()
+    public void reclamerForfait(/*int idmbr*/)
     {
-
+        /* Réclamer forfait et envoi lettrerappel ==
+         Envoi d'un toast
+        new ToastContentBuilder()
+        .AddArgument("action", "viewConversation")
+        .AddArgument("conversationId", num)
+        .AddText("textbox")
+        .Show();
+         */
     }
 
 }
