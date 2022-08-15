@@ -32,6 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="WPF\PaymentsMembre.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="WPF\respcalendar.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

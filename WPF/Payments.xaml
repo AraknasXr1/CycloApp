@@ -9,18 +9,13 @@
     <Border Background="#182636" CornerRadius="20"    Margin="50">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="20">
-                <Button Name="MainMenu" Click="MainMenu_Click"  FontSize="25" Margin="0,20,0,20" Content="Return" Background="#325172" Foreground="White"/>
-                <Label Background="White" HorizontalContentAlignment="Center">You need to pay </Label>
-                <TextBlock Background="White" FontSize="25" Foreground="Black" IsEnabled="False" TextAlignment="Center" Name="PayDay" />
-                <Label Background="White" HorizontalContentAlignment="Center" >€</Label>
-
-                <DataGrid Visibility="Hidden" Name="PayGrid" AutoGenerateColumns="False" CanUserAddRows="False" Background="DarkBlue" HorizontalAlignment="Center" VerticalAlignment="Stretch" FontSize="20" Margin="0,10,0,0" FontStyle="Normal" FontStretch="Normal" >
-                    <DataGrid.Columns >
-                        <DataGridTextColumn Binding="{Binding FirstName}" Header="Client Name" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding LastName}" Header="Last Name" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding Wallet}" Header="Client Wallet" IsReadOnly="True" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                <StackPanel Margin="20">
+                    <Button Name="MainMenu" Click="MainMenu_Click" FontSize="25" Margin="0,20,0,20" Content="Return" Background="#325172" Foreground="White"/>
+                    <Button Name="reclamerforfait" Click="ReclamerForfait_Click" Content="Réclamer le forfait à un membre" Background="#325870" Foreground="Black"   FontSize="25" Margin="0,20,0,20"/>
+                    <Button Name="payerconducteur" Click="PayerConducteur_Click" Content="Payer un conducteur" Background="#325870" Foreground="Black"   FontSize="25" Margin="0,20,0,20"/>
+                    <Button Name="envoyerrappel" Click="Rappel_Click" Content="Envoyer un rappel à un membre" Background="#325870" Foreground="Black"   FontSize="25" Margin="0,20,0,20"/>
+                    <Image Height="125" Width="368" Source="/Sans titre 3.png" Stretch="Uniform" HorizontalAlignment="Center" />
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Border>
