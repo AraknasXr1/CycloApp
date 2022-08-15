@@ -23,7 +23,8 @@ namespace ProjectCyclistsWPF
     /// </summary>
     public partial class LoginScreen : Window
     {
-        
+        private string login="";
+        private string password="";
         
         public LoginScreen()
         {
@@ -32,46 +33,53 @@ namespace ProjectCyclistsWPF
         
         private void btnSubmitLogin_Click(object sender, RoutedEventArgs e)
         {
-            
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
+            login=txtUsername.Text;
+            password = txtPassword.Password;
+            if(login.Equals("") | password.Equals(""))
             {
-                try
+                MessageBox.Show("Enter Data in both fields");
+            }
+            else
+            {
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
                 {
-                    if (connection.State == ConnectionState.Closed)
-                        connection.Open();
-                    String querylogin = "SELECT * FROM Clients WHERE ClientLogin like @ClientLogin AND Password like @Password";
-                    SqlCommand sqlcmdlogin = new SqlCommand(querylogin, connection);
-                    sqlcmdlogin.CommandType = CommandType.Text;
-                    sqlcmdlogin.Parameters.AddWithValue("@ClientLogin", txtUsername.Text);
-                    sqlcmdlogin.Parameters.AddWithValue("@Password", txtPassword.Password);
-                    int idclient = Convert.ToInt32(sqlcmdlogin.ExecuteScalar());
-                    if(idclient > 0)
+                    try
                     {
-                        using (SqlDataReader reader = sqlcmdlogin.ExecuteReader())
+                        if (connection.State == ConnectionState.Closed)
+                            connection.Open();
+                        String querylogin = "SELECT * FROM dbo.Clients WHERE ClientLogin like @ClientLogin AND Password like @Password";
+                        SqlCommand sqlcmdlogin = new SqlCommand(querylogin, connection);
+                        sqlcmdlogin.CommandType = CommandType.Text;
+                        sqlcmdlogin.Parameters.AddWithValue("@ClientLogin", txtUsername.Text);
+                        sqlcmdlogin.Parameters.AddWithValue("@Password", txtPassword.Password);
+                        int idclient = Convert.ToInt32(sqlcmdlogin.ExecuteScalar());
+                        if (idclient > 0)
                         {
-                            while (reader.Read())
+                            using (SqlDataReader reader = sqlcmdlogin.ExecuteReader())
                             {
-                                MainWindow dashboard = new MainWindow(idclient);
-                                dashboard.Show();
-                                this.Close();
+                                while (reader.Read())
+                                {
+                                    MainWindow dashboard = new MainWindow(idclient);
+                                    dashboard.Show();
+                                    this.Close();
+                                }
                             }
                         }
+                        else
+                        {
+                            MessageBox.Show("Username or Password is incorrect");
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("Username or Password is incorrect");
+                        MessageBox.Show(ex.Message);
                     }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    connection.Close();
+                    finally
+                    {
+                        connection.Close();
+                    }
                 }
             }
-            
         }
     }
 }
