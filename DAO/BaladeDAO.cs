@@ -1,9 +1,11 @@
 using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Reflection.PortableExecutable;
+using System.Windows;
 using System.Windows.Documents;
 
 
@@ -16,7 +18,26 @@ public class BaladeDAO :  DAO<Balade>
         }
         public override bool Delete(Balade obj)
         {
-            return false;
+        int id = obj.Num;
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
+            {
+                try
+                {
+                    String deleteride = $"DELETE FROM Ride WHERE IdRide=@idride";
+                    SqlCommand sqldelete = new SqlCommand(deleteride, connection);
+                    connection.Open();
+                    sqldelete.Parameters.AddWithValue("@idride", id);
+                    sqldelete.ExecuteNonQuery();
+                    MessageBox.Show("Deleted your Ride with id number " + id);
+                    connection.Close();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                return false;
+            }
         }
         public override bool Update(Balade obj)
         {

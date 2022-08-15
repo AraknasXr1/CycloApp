@@ -12,6 +12,10 @@
                 
                 <Button Name="MainMenu" Click="MainMenu_Click" FontSize="25" Margin="0,20,0,20" Content="Return" Background="#325172" Foreground="White"/>
                 <Label Name="WelcomeLabel" Content="Welcome PlaceHolder" Initialized="WelcomeLabel_Initialized"  Background="#325172" Foreground="Black" FontSize="25"/>
+                <Label Name="RideList" Content="placeholder" Initialized="RideList_Initialized" Margin="0,20,0,10" Background="#325172"  Foreground="white" FontSize="10"/>
+                <Label Name="l6" FontSize="18" Foreground="White" HorizontalAlignment="Center">Ride ID you want to Delete</Label>
+                <TextBox   FontSize="18" Name="DeleteRideId" Background="#FF3F4E76" Margin="200,0,200,0"/>
+                <Button  Content="Delete Ride" Name="RideDel" Click="RideDel_Click"  HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0" Background="#FF121441" Foreground="#FFB2480C"/>
 
             </StackPanel>
         </ScrollViewer>

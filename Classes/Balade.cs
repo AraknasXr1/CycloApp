@@ -12,7 +12,7 @@ public class Balade
 
     public override string ToString()
     {
-        return "Balade: " + num + " " + lieuDepart + " " + dateDepart + " " + forfait ;
+        return "Id:" + num + " Dep:" + lieuDepart + " Date:" + dateDepart + " Price:" + forfait ;
     }
     public Balade(int num, string lieuDepart, string dateDepart, int forfait)
     {
