@@ -68,11 +68,11 @@ namespace ProjectCyclistsWPF
         {
             if (!(PayerConducteurId.Text == String.Empty))
             {
-                if (!(PayerConducteurId.Text == String.Empty))
+                Match matchpayer = regexrule.Match(PayerConducteurId.Text);
+                if (matchpayer.Success)
                 {
                     mbr.Solde = 0;
                     MessageBox.Show("Conducteur payé! ");
-                    
                 }
                 else
                 {
