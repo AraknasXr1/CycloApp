@@ -28,7 +28,7 @@ public class Membre : Personne
     public Membre()
     {
     }
-    public float Solde
+    public int Solde
     {
         get;
         set;
