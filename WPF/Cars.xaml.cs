@@ -40,7 +40,11 @@ namespace ProjectCyclistsWPF
             this.Close();
         }
         private void AddCar_Click(object sender, RoutedEventArgs e)
-        {
+        {//idcar , idcarclient , CarSeat , CarBike , CarBrand
+            Vehicule bl2 = new(idmembre, int.Parse(CarSeat.Text), int.Parse(CarBikeSpace.Text), CarBrand.Text);
+            //MessageBox.Show(bl2.ToString() + "\n");
+            VehiculeDAO BDAO3 = new VehiculeDAO();
+            BDAO3.Create2(idmembre, int.Parse(CarSeat.Text), int.Parse(CarBikeSpace.Text), CarBrand.Text);
             /*
             if (isValid())
             {
@@ -63,12 +67,24 @@ namespace ProjectCyclistsWPF
 
         private void DeleteCar_Click(object sender, RoutedEventArgs e)
         {
-
+            Vehicule vl2 = new();
+            vl2.Idvoiture = int.Parse(DeleteCarNumber.Text);
+            VehiculeDAO VDAO2 = new VehiculeDAO();
+            VDAO2.Delete(vl2);
         }
 
         private void CarList_Initialized(object sender, EventArgs e)
         {
+            List<Vehicule> vehiculeliste = new List<Vehicule>();
+            VehiculeDAO VDAO = new VehiculeDAO();
+            vehiculeliste = VDAO.FindListVehicule(idmembre);
+            string concats = "";
+            foreach (Vehicule b in vehiculeliste)
+            {
+                concats += b.ToString() + "\n";
 
+            }
+            CarList.Content=concats;
         }
     }
 }
