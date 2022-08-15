@@ -41,6 +41,7 @@ public class RandonneurDAO : DAO<Randonneur>
                         };
                     }
                 }
+                connection.Close();
             }
         }
         catch (SqlException)

@@ -1,15 +1,20 @@
 using System.Collections.Generic;
+using System.Windows.Documents;
 
 public class Balade
 {
     private int num =0;
     private string lieuDepart = "";
     private string dateDepart = "";
-    private float forfait = 0;
+    private int forfait = 0;
     private List<Vehicule> vehicules = new List<Vehicule>();
     private List<Inscription> inscriptions = new List<Inscription>();
 
-    public Balade(int num, string lieuDepart, string dateDepart, float forfait)
+    public override string ToString()
+    {
+        return "Balade: " + num + " " + lieuDepart + " " + dateDepart + " " + forfait ;
+    }
+    public Balade(int num, string lieuDepart, string dateDepart, int forfait)
     {
         this.num = num;
         this.lieuDepart = lieuDepart;
@@ -21,23 +26,23 @@ public class Balade
 
     public int Num
     {
-        get { return num; }
-        set { num = value; }
+        get;
+        set;
     }
     public string LieuDepart
     {
-        get { return lieuDepart; }
-        set { lieuDepart = value; }
+        get;
+        set;
     }
     public string DateDepart
     {
-        get { return dateDepart; }
-        set { dateDepart = value; }
+        get;
+        set;
     }
     public float Forfait
     {
-        get { return forfait; }
-        set { forfait = value; }
+        get;
+        set;
     }
     public List<Inscription> Inscriptions
     {

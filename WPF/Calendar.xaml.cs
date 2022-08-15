@@ -19,10 +19,18 @@ namespace ProjectCyclistsWPF
     /// </summary>
     public partial class Calendar : Window
     {
+        public int idresplocal = 0;
         private int numbcli;
         public Calendar(int idcli)
         {
             numbcli = idcli;
+            InitializeComponent();
+        }
+
+        public Calendar(int idresp,Membre m)
+        {
+            idresplocal = idresp;
+            numbcli = m.id;
             InitializeComponent();
         }
 
@@ -35,9 +43,17 @@ namespace ProjectCyclistsWPF
 
         private void seePersonalCalendar_Click(object sender, RoutedEventArgs e)
         {
-            personalcalendar personalcalendar = new personalcalendar(numbcli);
-            personalcalendar.Show();
-            this.Close();
+            if(idresplocal>0)
+            {
+                MessageBox.Show("Button Disabled for Responsables");
+            }
+            else
+            {
+                personalcalendar personalcalendar = new personalcalendar(numbcli);
+                personalcalendar.Show();
+                this.Close();
+            }
+            
         }
 
         private void seeGlobalCalendar_Click(object sender, RoutedEventArgs e)

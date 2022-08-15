@@ -38,7 +38,8 @@ public class VeloDAO :  DAO<Velo>
                             };
                         }
                     }
-                }
+                connection.Close();
+            }
             }
             catch(SqlException)
             {
@@ -70,7 +71,8 @@ public class VeloDAO :  DAO<Velo>
                             Velos.Add(bik);
                         }
                     }
-                }
+                connection.Close();
+            }
             }
             catch (SqlException)
             {

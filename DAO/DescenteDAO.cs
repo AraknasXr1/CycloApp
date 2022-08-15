@@ -41,6 +41,7 @@ public class DescenteDAO : DAO<Descente>
                         };
                     }
                 }
+                connection.Close();
             }
         }
         catch (SqlException)

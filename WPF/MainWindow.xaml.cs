@@ -74,10 +74,27 @@ namespace ProjectCyclistsWPF
         }
         private void btnCalendarLogin_Click_1(object sender, RoutedEventArgs e)
         {
-            Calendar calendarwindow = new Calendar(m.id);
-            calendarwindow.Show();
-            this.Close();
+            //envoyer l'objet et l'id du responsable
+            //si il est un responsable on envois l'objet complet et l'id 
+            //sinon on ouvre juste avec l'id
+            if(flag==2)
+                {
+                //lorsq'uil est responsable on prends l'id du membre et l'id de sa responsabilité
+                respcalendar respcalendar = new respcalendar(t.id,m.id);
+                respcalendar.Show();
+                this.Close();
+            }
+            else
+            {
+                //c'est un membre simple si le flag est different de 2 (pas d'acces pour le tresorier)
+                Calendar calendarwindow = new Calendar(m.id);
+                calendarwindow.Show();
+                this.Close();
+
+            }
+            
         }
+
 
         private void btnCars_Click(object sender, RoutedEventArgs e)
         {

@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 
 public class ResponsableDAO : DAO<Responsable>
 {
+
     public ResponsableDAO() { }
     public override bool Create(Responsable obj)
     {
@@ -19,6 +20,41 @@ public class ResponsableDAO : DAO<Responsable>
     public override bool Update(Responsable obj)
     {
         return false;
+    }
+    
+    public Responsable Findnamecat(int id)
+    {
+        Responsable Responsable = new Responsable();
+        Responsable Responsable2 = new Responsable();
+        int count = 0;
+        using (SqlConnection connection = new SqlConnection(this.connectionString))
+        {
+            try
+            {
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+
+                SqlCommand queryretrieveinfo = new SqlCommand("SELECT * FROM dbo.Category WHERE IdCatResp = @id", connection);
+                queryretrieveinfo.Parameters.AddWithValue("id", id);
+
+                using (SqlDataReader reader = queryretrieveinfo.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Responsable2.id = reader.GetInt32(2);
+                        Responsable2.nom = reader.GetString(1);
+                        count++;
+                    }
+                }
+                connection.Close();
+            }
+            catch (SqlException)
+            {
+                throw new System.Exception("Une erreur sql s'est produite!");
+            }
+        }
+        Responsable.id = Responsable2.id;
+        return Responsable2;
     }
     public override Responsable Find(int id)
     {
@@ -44,6 +80,7 @@ public class ResponsableDAO : DAO<Responsable>
                         count++;
                     }
                 }
+                connection.Close();
             }
             catch (SqlException)
             {
@@ -54,46 +91,6 @@ public class ResponsableDAO : DAO<Responsable>
         return Responsable;
     }
 
-    public int Login(string login, string password)
-    {
-        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
-        {
-            try
-            {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-                String querylogin = "SELECT * FROM dbo.Responsable WHERE ClientLogin like @ClientLogin AND Password like @Password";
-                SqlCommand sqlcmdlogin = new SqlCommand(querylogin, connection);
-                sqlcmdlogin.CommandType = CommandType.Text;
-                sqlcmdlogin.Parameters.AddWithValue("@ClientLogin", login);
-                sqlcmdlogin.Parameters.AddWithValue("@Password", password);
-                int idclient = Convert.ToInt32(sqlcmdlogin.ExecuteScalar());
-                if (idclient > 0)
-                {
-                    using (SqlDataReader reader = sqlcmdlogin.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            return idclient;
-                        }
-                    }
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-        return 0;
-    }
     public List<Responsable> FindAll(Responsable Responsable)
     {
         List<Responsable> Responsables = new List<Responsable>();
@@ -118,7 +115,9 @@ public class ResponsableDAO : DAO<Responsable>
                         Responsables.Add(resp);
                     }
                 }
+                connection.Close();
             }
+
         }
         catch (SqlException)
         {

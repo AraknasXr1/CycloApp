@@ -50,6 +50,7 @@ public class TresorierDAO : DAO<Tresorier>
             {
                 throw new System.Exception("Une erreur sql s'est produite!");
             }
+            connection.Close();
         }
         Tresorier.id = count;
         return Tresorier;

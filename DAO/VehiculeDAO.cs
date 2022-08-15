@@ -36,7 +36,9 @@ public override Vehicule Find(int id)
                             };
                         }
                     }
-                }
+                connection.Close();
+            }
+
             }
             catch (SqlException)
             {

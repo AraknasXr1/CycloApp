@@ -41,6 +41,7 @@ public class InscriptionDAO : DAO<Inscription>
                         };
                     }
                 }
+                connection.Close();
             }
         }
         catch (SqlException)

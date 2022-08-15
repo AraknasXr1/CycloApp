@@ -47,6 +47,7 @@ public class MembreDAO : DAO<Membre>
                             logmembre = logmembre2;
                         }
                     }
+                    connection.Close();
                 }
                 else
                 {

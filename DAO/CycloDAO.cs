@@ -41,6 +41,7 @@ public class CycloDAO : DAO<Cyclo>
                         };
                     }
                 }
+                connection.Close();
             }
         }
         catch (SqlException)
@@ -73,6 +74,7 @@ public class CycloDAO : DAO<Cyclo>
                         Cyclos.Add(cyc);
                     }
                 }
+                connection.Close();
             }
         }
         catch (SqlException)

@@ -1,5 +1,10 @@
+using Microsoft.SqlServer.Server;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Reflection.PortableExecutable;
+using System.Windows.Documents;
 
 
 public class BaladeDAO :  DAO<Balade>
@@ -41,13 +46,16 @@ public class BaladeDAO :  DAO<Balade>
                             };
                         }
                     }
-                }
+                connection.Close();
             }
+            
+        }
             catch (SqlException)
             {
                 throw new System.Exception("Une erreur sql s'est produite!");
             }
-            return Balade;
+        
+        return Balade;
         }
         public List<Balade> FindAll(Balade Balade)
         {
@@ -73,7 +81,8 @@ public class BaladeDAO :  DAO<Balade>
                             Balades.Add(bld);
                         }
                     }
-                }
+                connection.Close();
+            }
             }
             catch (SqlException)
             {
@@ -81,4 +90,64 @@ public class BaladeDAO :  DAO<Balade>
             }
             return Balades;
         }
+
+    public List<Balade> FindListBalade(int id, List<Balade> Balades)
+    {
+        using (SqlConnection connection = new SqlConnection(this.connectionString))
+        {
+            try
+            {
+
+                   
+
+                SqlCommand cmd = new SqlCommand("select * from dbo.Ride as r inner join dbo.Category as c on r.IdCatRide = c.IdCat WHERE IdCatRide = @id", connection);
+                cmd.Parameters.AddWithValue("id", id);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Balade bld = new Balade(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(5));
+                        Balades.Add(bld);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw new System.Exception("Une erreur sql s'est produite!");
+            }
+            connection.Close();
+        }
+        return Balades;
     }
+    public string finddepartureplace(int id)
+    {
+        string depplace2="";
+        using (SqlConnection connection = new SqlConnection(this.connectionString))
+        {
+            try
+            {
+
+
+
+                SqlCommand cmd = new SqlCommand("select * from dbo.Ride as r inner join dbo.Category as c on r.IdCatRide = c.IdCat WHERE IdCatRide = @id", connection);
+                cmd.Parameters.AddWithValue("id", id);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string depplace1 = reader.GetString(1);
+                        depplace2 = depplace1;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw new System.Exception("Une erreur sql s'est produite!");
+            }
+            connection.Close();
+        }
+        return depplace2;
+    }
+}

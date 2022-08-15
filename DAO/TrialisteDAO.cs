@@ -41,6 +41,7 @@ public class TrialisteDAO : DAO<Trialiste>
                         };
                     }
                 }
+                connection.Close();
             }
         }
         catch (SqlException)
