@@ -190,8 +190,6 @@ public class BaladeDAO :  DAO<Balade>
             try
             {
 
-
-
                 SqlCommand cmd = new SqlCommand("select * from dbo.Ride as r inner join dbo.Category as c on r.IdCatRide = c.IdCat WHERE IdCatRide = @id", connection);
                 cmd.Parameters.AddWithValue("id", id);
                 connection.Open();
@@ -211,5 +209,67 @@ public class BaladeDAO :  DAO<Balade>
             connection.Close();
         }
         return depplace2;
+    }
+
+    public List<string> FindListByCatAndIdMember(int idmember)
+    {
+        List<string> list = new List<string>();
+        string depplace2 = "";
+        using (SqlConnection connection = new SqlConnection(this.connectionString))
+        {
+            try
+            {
+
+                SqlCommand cmd = new SqlCommand("select * from LinkRide inner join Ride on LinkRide.IdRide = Ride.IdRide where IdCliRide = @id", connection);
+                cmd.Parameters.AddWithValue("@id", idmember);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        //IdLink 0 , IdCliRide 1, IdRide 2, IdRide 3, DeparturePlace 4, DepartureDate 5, DepartureHour 6 , IdCatride 7 , RidePrice 8,MaxClient 7
+                        string depplace1 = "Id:"+reader.GetInt32(2)+" DP:"+ reader.GetString(4) + " DD:" + reader.GetString(5);
+                        list.Add(depplace1);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw new System.Exception("Une erreur sql s'est produite!");
+            }
+            connection.Close();
+        }
+        return list;
+    }
+
+    public List<string> FindSpecificBaladeList(int idmember)
+    {
+        List<string> list = new List<string>();
+        string depplace2 = "";
+        using (SqlConnection connection = new SqlConnection(this.connectionString))
+        {
+            try
+            {
+
+                SqlCommand cmd = new SqlCommand("select * from Ride left join Category on Ride.IdCatRide = Category.IdCat inner join LinkCat on LinkCat.IdCategory = Category.IdCat where IdClient = @id", connection);
+                cmd.Parameters.AddWithValue("@id", idmember);
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        //IdRide 0 , DepPlace 1, DepDate 2, DepHour 3, IdCatRide 4, RidePrice 5, MaxCli 6 , IdCat 7 , CatName 8, etc...
+                        string depplace1 = "Id: " + reader.GetInt32(0) + " DP: " + reader.GetString(1) + " DD: " + reader.GetString(2) + " €: "+reader.GetInt32(5);
+                        list.Add(depplace1);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw new System.Exception("Une erreur sql s'est produite!");
+            }
+            connection.Close();
+        }
+        return list;
     }
 }

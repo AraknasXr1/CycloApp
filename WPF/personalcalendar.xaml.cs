@@ -87,17 +87,65 @@ namespace ProjectCyclistsWPF
                     MessageBox.Show("Car added to the ride");
                     connection.Close();
                 }
-                }
+        }
 
 
         private void RideList_Initialized(object sender, EventArgs e)
         {
+            List<string> list = new List<string>();
+            BaladeDAO BDAO = new BaladeDAO();
+            list = BDAO.FindListByCatAndIdMember(numbcli);
+            string concats = "";
+            foreach (string b in list)
+            {
+                concats += b + "\n";
 
+            }
+            RideList.Content = concats;
         }
 
         private void CarList_Initialized(object sender, EventArgs e)
         {
+            List<Vehicule> vehiculeliste = new List<Vehicule>();
+            VehiculeDAO VDAO = new VehiculeDAO();
+            vehiculeliste = VDAO.FindListVehicule(numbcli);
+            string concats = "";
+            foreach (Vehicule b in vehiculeliste)
+            {
+                concats += b.ToString() + "\n";
 
+            }
+            CarList.Content = concats;
+        }
+
+        private void BikeList_Initialized(object sender, EventArgs e)
+        {
+            List<Velo> veloliste = new List<Velo>();
+            VeloDAO VDAO = new VeloDAO();
+            veloliste = VDAO.FindListVelo(numbcli);
+            string concats = "";
+            foreach (Velo b in veloliste)
+            {
+                concats += b.ToString() + "\n";
+
+            }
+            BikeList.Content = concats;
+        }
+
+        private void AddBikebtn_Click(object sender, RoutedEventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CyclingDB"].ConnectionString))
+            {
+                String insertcar = $"INSERT INTO LinkVeloInscr(idvelo,idinscr) VALUES (@linkBike,@linkride)";
+                SqlCommand sqlinsert = new SqlCommand(insertcar, connection);
+                sqlinsert.CommandType = CommandType.Text;
+                sqlinsert.Parameters.AddWithValue("@linkBike", AddBike.Text);
+                sqlinsert.Parameters.AddWithValue("@linkride", AddbikeId.Text);
+                connection.Open();
+                sqlinsert.ExecuteNonQuery();
+                MessageBox.Show("Bike added to the ride");
+                connection.Close();
+            }
         }
     }
 

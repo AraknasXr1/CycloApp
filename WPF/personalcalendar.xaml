@@ -9,23 +9,32 @@
     <Border Background="#182636" CornerRadius="20"    Margin="50">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="20">
-                <Button Name="MainMenu" Click="MainMenu_Click"  FontSize="25" Margin="0,10,0,10" Content="Return" Background="#325172" Foreground="White"/>
+                <Button Name="MainMenu" Click="MainMenu_Click"  FontSize="25" Margin="0,5,0,5" Content="Return" Background="#325172" Foreground="White"/>
                 <Label FontSize="15" Foreground="White" HorizontalAlignment="Center">Your Rides</Label>
-                <Label Name="RideList" Content="placeholder" Initialized="RideList_Initialized"  Margin="0,5,0,10" Background="#325172"  Foreground="white" FontSize="15"/>
+                <Label Name="RideList" Content="placeholder" Initialized="RideList_Initialized"  Margin="0,5,0,5" Background="#325172"  Foreground="white" FontSize="15"/>
                 <Label FontSize="15" Foreground="White" HorizontalAlignment="Center">Ride ID you want to Delete</Label>
                 <TextBox FontSize="15" Name="DeleteRideNumber" Background="#FF3F4E76" Margin="100,0,100,0"/>
-                <Button Content="Delete Ride" Name="DeleteRide" Click="DeleteRide_Click" HorizontalAlignment="Center" FontSize="15" Margin="0,10,0,10" Background="#FF121441" Foreground="#FFB2480C"/>
+                <Button Content="Delete Ride" Name="DeleteRide" Click="DeleteRide_Click" HorizontalAlignment="Center" FontSize="15" Margin="0,5,0,5" Background="#FF121441" Foreground="#FFB2480C"/>
                 <Separator></Separator>
                 <Label FontSize="15" Foreground="White" HorizontalAlignment="Center">Your Available Cars</Label>
-                <Label Name="CarList" Content="placeholder" Initialized="CarList_Initialized"  Margin="0,5,0,10" Background="#325172"  Foreground="white" FontSize="15"/>
+                <Label Name="CarList" Content="placeholder" Initialized="CarList_Initialized"  Margin="0,5,0,5" Background="#325172"  Foreground="white" FontSize="15"/>
                 <Label FontSize="15" Foreground="White" HorizontalAlignment="Center">Id Car you want to Use</Label>
                 <TextBox FontSize="15" Name="AddCar" Background="#FF3F4E76" Margin="100,0,100,0"/>
                 
                 <Label FontSize="15" Foreground="White" HorizontalAlignment="Center">Ride ID to Add your Car</Label>
                 <TextBox FontSize="15" Name="Addid" Background="#FF3F4E76" Margin="100,0,100,0"/>
-                <Button Content="Add Car to Ride" Name="AddCarBtn" Click="AddCarBtn_Click" HorizontalAlignment="Center" FontSize="15" Margin="0,10,0,10" Background="#FF121441" Foreground="#FF0CB234"/>
+                <Button Content="Add Car to Ride" Name="AddCarBtn" Click="AddCarBtn_Click" HorizontalAlignment="Center" FontSize="15" Margin="0,5,0,5" Background="#FF121441" Foreground="#FF0CB234"/>
 
                 <Separator></Separator>
+                <Label FontSize="15" Foreground="White" HorizontalAlignment="Center">Your Available Bikes</Label>
+                <Label Name="BikeList" Content="placeholder" Initialized="BikeList_Initialized"  Margin="0,20,0,10" Background="#325172"  Foreground="white" FontSize="15"/>
+                <Label FontSize="15" Foreground="White" HorizontalAlignment="Center">Id Bike you want to Use</Label>
+                <TextBox FontSize="15" Name="AddBike" Background="#FF3F4E76" Margin="100,0,100,0"/>
+                
+                <Label FontSize="15" Foreground="White" HorizontalAlignment="Center">Ride ID to Add your Bike</Label>
+                <TextBox FontSize="15" Name="AddbikeId" Background="#FF3F4E76" Margin="100,0,100,0"/>
+                <Button Content="Add Bike to Ride" Name="AddBikebtn" Click="AddBikebtn_Click"  HorizontalAlignment="Center" FontSize="15" Margin="0,5,0,5" Background="#FF121441" Foreground="#FF0CB234"/>
+
             </StackPanel>
         </ScrollViewer>
     </Border>
