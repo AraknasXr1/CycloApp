@@ -46,14 +46,12 @@ namespace ProjectCyclistsWPF
             this.Close();
         }
 
-        private void PayDay_Initialized(object sender, EventArgs e)
-        {
-            
-        }
-
         private void RideList_Initialized(object sender, EventArgs e)
         {
-            RideList.Content = "something";
+            MembreDAO MDAO = new MembreDAO();
+            mbr = MDAO.Find(numbcli);
+            wallet = mbr.Solde;
+            RideList.Content = wallet;
         }
     }
 }
